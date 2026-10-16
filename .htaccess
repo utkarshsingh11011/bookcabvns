@@ -1,0 +1,142 @@
+RewriteEngine On
+RewriteBase /
+
+# ════════════════════════════════════════════════════════════════════
+# 1. FORCE HTTPS · Enforce non-www canonical host
+# ════════════════════════════════════════════════════════════════════
+RewriteCond %{HTTPS} off [OR]
+RewriteCond %{HTTP_HOST} ^www\. [NC]
+RewriteRule ^(.*)$ https://bookcabvaranasi.com/$1 [L,R=301]
+
+# ════════════════════════════════════════════════════════════════════
+# 2. SERVE REAL FILES / DIRS AS-IS
+# ════════════════════════════════════════════════════════════════════
+RewriteCond %{REQUEST_FILENAME} -f [OR]
+RewriteCond %{REQUEST_FILENAME} -d
+RewriteRule ^ - [L]
+
+# ════════════════════════════════════════════════════════════════════
+# 3. 301 REDIRECTS — Legacy flat URLs → new canonical directories
+# ════════════════════════════════════════════════════════════════════
+
+# Old blog/article pattern → keep as-is (article.php handles it)
+RewriteRule ^blog/([a-zA-Z0-9-]+)/?$ /article.php?page=$1 [L,QSA]
+
+# Old intercity-cab portal → new route slugs
+RewriteRule ^intercity-cab/varanasi-to-prayagraj/?$ /routes/varanasi-to-prayagraj-taxi/ [R=301,L]
+RewriteRule ^intercity-cab/prayagraj-to-varanasi/?$ /routes/prayagraj-to-varanasi-taxi/ [R=301,L]
+RewriteRule ^intercity-cab/varanasi-to-ayodhya/?$   /routes/varanasi-to-ayodhya-cab/   [R=301,L]
+RewriteRule ^intercity-cab/ayodhya-to-varanasi/?$   /routes/ayodhya-to-varanasi-cab/   [R=301,L]
+RewriteRule ^intercity-cab/prayagraj-to-ayodhya/?$  /routes/prayagraj-to-ayodhya-cab/  [R=301,L]
+RewriteRule ^intercity-cab/ayodhya-to-prayagraj/?$  /routes/ayodhya-to-prayagraj-cab/  [R=301,L]
+RewriteRule ^intercity-cab/?$                        /services/outstation-taxi-varanasi/ [R=301,L]
+
+# Old .php flat pages → new canonical paths
+RewriteRule ^taxi\.php$                 /services/outstation-taxi-varanasi/   [R=301,L]
+RewriteRule ^taxirental\.php$           /services/outstation-taxi-varanasi/   [R=301,L]
+RewriteRule ^airport\.php$              /services/varanasi-airport-taxi/       [R=301,L]
+RewriteRule ^airportrental\.php$        /services/varanasi-airport-taxi/       [R=301,L]
+RewriteRule ^tour\.php$                 /tours/kashi-darshan-cab-package/      [R=301,L]
+RewriteRule ^planner\.php$              /routes/varanasi-to-ayodhya-cab/       [R=301,L]
+RewriteRule ^intercity-cab-portal\.php$ /services/outstation-taxi-varanasi/   [R=301,L]
+RewriteRule ^brijeshkumarsingh\.php$    /about/                                [R=301,L]
+RewriteRule ^thankyou\.php$             /                                       [R=301,L]
+
+# ════════════════════════════════════════════════════════════════════
+# 4. NEW CLEAN URL ROUTING — map directory paths to PHP files
+#    All paths use trailing-slash canonical; enforce it first.
+# ════════════════════════════════════════════════════════════════════
+
+# Enforce trailing slash (except for files with extensions)
+RewriteCond %{REQUEST_URI} !/$
+RewriteCond %{REQUEST_URI} !\.[a-zA-Z0-9]+$
+RewriteRule ^(.+)$ /$1/ [R=301,L]
+
+# ── Homepage ─────────────────────────────────────────────
+RewriteRule ^$  index.php [L]
+
+# ── Sitemap index + sub-sitemaps ─────────────────────────
+RewriteRule ^sitemap\.xml$           sitemap.php [L]
+RewriteRule ^sitemaps/locations\.xml$  sitemaps/locations.php  [L]
+RewriteRule ^sitemaps/services\.xml$   sitemaps/services.php   [L]
+RewriteRule ^sitemaps/routes\.xml$     sitemaps/routes.php     [L]
+RewriteRule ^sitemaps/tours\.xml$      sitemaps/tours.php      [L]
+RewriteRule ^sitemaps/fleet\.xml$      sitemaps/fleet.php      [L]
+RewriteRule ^sitemaps/guides\.xml$     sitemaps/guides.php     [L]
+
+# ── Locations ────────────────────────────────────────────
+RewriteRule ^locations/varanasi/$    locations/varanasi.php   [L]
+RewriteRule ^locations/ayodhya/$     locations/ayodhya.php    [L]
+RewriteRule ^locations/prayagraj/$   locations/prayagraj.php  [L]
+
+# ── Services ─────────────────────────────────────────────
+RewriteRule ^services/varanasi-airport-taxi/$          services/varanasi-airport-taxi.php          [L]
+RewriteRule ^services/varanasi-local-8hr-80km/$        services/varanasi-local-8hr-80km.php        [L]
+RewriteRule ^services/varanasi-railway-station-taxi/$  services/varanasi-railway-station-taxi.php  [L]
+RewriteRule ^services/kashi-vishwanath-darshan-cab/$   services/kashi-vishwanath-darshan-cab.php   [L]
+RewriteRule ^services/outstation-taxi-varanasi/$       services/outstation-taxi-varanasi.php       [L]
+
+# ── Routes ───────────────────────────────────────────────
+RewriteRule ^routes/varanasi-to-ayodhya-cab/$     routes/varanasi-to-ayodhya-cab.php    [L]
+RewriteRule ^routes/ayodhya-to-varanasi-cab/$     routes/ayodhya-to-varanasi-cab.php    [L]
+RewriteRule ^routes/varanasi-to-prayagraj-taxi/$  routes/varanasi-to-prayagraj-taxi.php [L]
+RewriteRule ^routes/prayagraj-to-varanasi-taxi/$  routes/prayagraj-to-varanasi-taxi.php [L]
+RewriteRule ^routes/prayagraj-to-ayodhya-cab/$    routes/prayagraj-to-ayodhya-cab.php   [L]
+RewriteRule ^routes/ayodhya-to-prayagraj-cab/$    routes/ayodhya-to-prayagraj-cab.php   [L]
+
+# ── Tours ────────────────────────────────────────────────
+RewriteRule ^tours/varanasi-prayagraj-ayodhya-package/$ tours/varanasi-prayagraj-ayodhya-package.php [L]
+RewriteRule ^tours/kashi-darshan-cab-package/$          tours/kashi-darshan-cab-package.php          [L]
+RewriteRule ^tours/ayodhya-ram-mandir-taxi-package/$    tours/ayodhya-ram-mandir-taxi-package.php    [L]
+RewriteRule ^tours/varanasi-ayodhya-2-day-tour/$        tours/varanasi-ayodhya-2-day-tour.php        [L]
+RewriteRule ^tours/prayagraj-sangam-sightseeing/$       tours/prayagraj-sangam-sightseeing.php       [L]
+
+# ── Fleet ────────────────────────────────────────────────
+RewriteRule ^fleet/sedan-cab-rental/$        fleet/sedan-cab-rental.php        [L]
+RewriteRule ^fleet/ertiga-cab-rental/$       fleet/ertiga-cab-rental.php       [L]
+RewriteRule ^fleet/innova-crysta-rental/$    fleet/innova-crysta-rental.php    [L]
+RewriteRule ^fleet/tempo-traveller-rental/$  fleet/tempo-traveller-rental.php  [L]
+
+# ── Guides ───────────────────────────────────────────────
+RewriteRule ^guides/prayagraj-magh-mela-transport/$ guides/prayagraj-magh-mela-transport.php [L]
+
+# ── Static page aliases (no .php extension) ──────────────
+RewriteRule ^contact/?$               contact.php               [L]
+RewriteRule ^about/?$                 about.php                 [L]
+RewriteRule ^blog/?$                  blog.php                  [L]
+RewriteRule ^privacy-policy/?$        privacy-policy.php        [L]
+RewriteRule ^cancellation-policy/?$   cancellation-policy.php   [L]
+
+# API — protected from direct browsing
+RewriteRule ^api/(.+)$ api/$1 [L]
+
+# ════════════════════════════════════════════════════════════════════
+# 5. PERFORMANCE — GZIP + BROWSER CACHING
+# ════════════════════════════════════════════════════════════════════
+<IfModule mod_deflate.c>
+  AddOutputFilterByType DEFLATE text/html text/plain text/xml text/css
+  AddOutputFilterByType DEFLATE text/javascript application/javascript application/json
+  AddOutputFilterByType DEFLATE image/svg+xml application/xml
+</IfModule>
+
+<IfModule mod_expires.c>
+  ExpiresActive On
+  ExpiresByType image/avif              "access plus 1 year"
+  ExpiresByType image/webp              "access plus 1 year"
+  ExpiresByType image/jpeg              "access plus 1 year"
+  ExpiresByType image/png               "access plus 1 year"
+  ExpiresByType image/svg+xml           "access plus 1 month"
+  ExpiresByType text/css                "access plus 3 months"
+  ExpiresByType application/javascript  "access plus 3 months"
+  ExpiresByType application/json        "access plus 0 seconds"
+  ExpiresDefault                        "access plus 2 days"
+</IfModule>
+
+<IfModule mod_headers.c>
+  Header set Connection keep-alive
+  # Security headers
+  Header set X-Content-Type-Options "nosniff"
+  Header set X-Frame-Options "SAMEORIGIN"
+  Header set Referrer-Policy "strict-origin-when-cross-origin"
+  Header set Permissions-Policy "geolocation=(), microphone=(), camera=()"
+</IfModule>

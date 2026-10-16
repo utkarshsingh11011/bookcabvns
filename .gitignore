@@ -1,0 +1,18 @@
+# Vercel & Node
+.vercel
+node_modules/
+
+# Logs & Environment
+error_log
+*.log
+.env
+.env.local
+
+# OS Generated
+Thumbs.db
+Desktop.ini
+.DS_Store
+
+# Temporary / Scratch
+tmp/
+scratch/

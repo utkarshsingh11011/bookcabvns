@@ -1,0 +1,23 @@
+# BCV MASTER SEO ROBOTS FILE
+# 1. Allow Google and all other bots
+User-agent: *
+Allow: /
+
+# 2. Block sensitive system and private folders
+Disallow: /assets/css/
+Disallow: /assets/js/
+Disallow: /vendor/
+Disallow: /cgi-bin/
+Disallow: /login/
+Disallow: /admin_*.php
+
+# 3. CRITICAL: Block parameter URLs to fix "Duplicate without canonical"
+# This removes the ?NA, ?ND, and ?lightbox errors from your screenshot
+Disallow: /*?NA
+Disallow: /*?ND
+Disallow: /*?DD
+Disallow: /*?lightbox
+Disallow: /*?s=
+
+# 4. ALIGNMENT FIX: Point to the NON-WWW Sitemap
+Sitemap: https://bookcabvaranasi.com/sitemap.xml

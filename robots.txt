@@ -1,0 +1,13 @@
+User-agent: *
+Disallow: /api/
+Disallow: /admin/
+Disallow: /includes/
+Disallow: /booking/confirmation/
+Disallow: /assets/css/
+Disallow: /assets/js/
+Allow: /
+
+# Crawl delay for polite bots
+Crawl-delay: 2
+
+Sitemap: https://bookcabvaranasi.com/sitemap.xml

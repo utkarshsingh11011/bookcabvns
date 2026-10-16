@@ -1,0 +1,19 @@
+trip_type,origin,destination,vehicle_category,fare_amount,allowed_distance_km,allowed_hours,extra_charge_notes,trip_duration_days
+intercity,Varanasi,Gaya / Bodhgaya,Swift Dzire,8500,550,,Nil,1
+intercity,Varanasi,Allahabad (Prayagraj),Swift Dzire,3500,265,,Toll Parking,1
+intercity,Varanasi,Ayodhya,Swift Dzire,6500,440,,Toll Parking,1
+intercity,Varanasi,Vindhyachal (Mirzapur),Swift Dzire,2500,150,,Nil,1
+intercity,Varanasi,Lucknow,Swift Dzire,8500,650,,Nil,1
+local,Varanasi,Varanasi Local Sightseeing (12hr),Swift Dzire,2500,120,12,Parking Driver Night Extra,1
+local,Varanasi,Varanasi Local Sightseeing (8hr),Swift Dzire,1800,80,8,Parking Driver Night Extra,1
+airport,Varanasi,Varanasi Airport Transfer,Force Urbania (6-7 Seater),1500,,,Toll Parking,1
+local,Varanasi,Varanasi Local 8hr/80km,Force Urbania (6-7 Seater),2600,80,8,Parking Extra,1
+local,Varanasi,Varanasi Local 12hr/120km,Force Urbania (6-7 Seater),3500,120,12,Parking Extra,1
+airport,Varanasi,Varanasi Airport Transfer,Force Urbania (9-12 Seater),3000,,,Toll Parking,1
+local,Varanasi,Varanasi Local 8hr/80km,Force Urbania (9-12 Seater),6500,80,8,Parking Extra,1
+tour_package,Varanasi,Allahabad (Prayagraj),Force Urbania (9-12 Seater),10000,250,,Includes Toll & Parking,1
+tour_package,Varanasi,Prayagraj - Sitamarhi - Vindhyachal,Force Urbania (9-12 Seater),12500,300,,Includes Toll & Parking,1
+tour_package,Varanasi,Vindhyachal - Chunar,Force Urbania (9-12 Seater),9500,200,,Includes Toll & Parking,1
+tour_package,Varanasi,Ayodhya Day Trip,Force Urbania (9-12 Seater),18500,450,,Includes Toll & Parking,1
+tour_package,Varanasi,Gaya & Bodhgaya Day Trip,Force Urbania (9-12 Seater),22500,550,,Includes Toll & Parking,1
+tour_package,Varanasi,Prayagraj to Ayodhya (2 Days),Force Urbania (9-12 Seater),22500,550,,Includes Toll & Parking,2

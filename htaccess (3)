@@ -1,0 +1,58 @@
+RewriteEngine On
+RewriteBase /
+
+# 1. FORCE HTTPS & NON-WWW (Consolidated Fix)
+# This prevents Google from seeing 4 versions of your site
+RewriteCond %{HTTPS} off [OR]
+RewriteCond %{HTTP_HOST} ^www\. [NC]
+RewriteRule ^(.*)$ https://bookcabvaranasi.com/$1 [L,R=301]
+
+# 2. SITEMAP REWRITE
+RewriteRule ^sitemap\.xml$ sitemap.php [L]
+
+# 3. DO NOT REWRITE REAL FILES (Crucial for CSS/Images)
+RewriteCond %{REQUEST_FILENAME} -f [OR]
+RewriteCond %{REQUEST_FILENAME} -d
+RewriteRule ^ - [L]
+
+# 4. CLEAN BLOG URLS: /blog/slug -> article.php?page=slug
+# QSA flag ensures parameters are handled correctly for indexing
+RewriteRule ^blog/([a-zA-Z0-9-]+)/?$ article.php?page=$1 [L,QSA]
+
+# 5. INTERCITY CAB SEO ROUTING
+# Rewrites /intercity-cab/varanasi-to-prayagraj to intercity-cab.php?start=varanasi&end=prayagraj
+# This MUST be above the generic .php removal rule to prevent 404s.
+RewriteRule ^intercity-cab/([a-zA-Z0-9-]+)-to-([a-zA-Z0-9-]+)/?$ intercity-cab.php?start=$1&end=$2 [L,QSA]
+
+# 6. REMOVE .PHP EXTENSION
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteRule ^([^\.]+)$ $1.php [NC,L]
+
+# --- BEGIN SPEED OPTIMIZATION (GZIP & CACHING) ---
+
+# 1. Enable GZIP Compression
+<IfModule mod_deflate.c>
+  AddOutputFilterByType DEFLATE text/html text/plain text/xml text/css text/javascript application/javascript application/x-javascript application/json application/xml image/svg+xml
+</IfModule>
+
+# 2. Leverage Browser Caching
+<IfModule mod_expires.c>
+  ExpiresActive On
+  ExpiresByType image/jpg "access plus 1 year"
+  ExpiresByType image/jpeg "access plus 1 year"
+  ExpiresByType image/gif "access plus 1 year"
+  ExpiresByType image/png "access plus 1 year"
+  ExpiresByType image/svg+xml "access plus 1 month"
+  ExpiresByType text/css "access plus 1 month"
+  ExpiresByType application/javascript "access plus 1 month"
+  ExpiresByType text/javascript "access plus 1 month"
+  ExpiresDefault "access plus 2 days"
+</IfModule>
+
+# 3. Enable Keep-Alive
+<IfModule mod_headers.c>
+  Header set Connection keep-alive
+</IfModule>
+
+# --- END SPEED OPTIMIZATION ---

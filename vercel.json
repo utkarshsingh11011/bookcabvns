@@ -1,0 +1,30 @@
+{
+  "version": 2,
+  "functions": {
+    "api/*.php": {
+      "runtime": "vercel-php@0.9.0"
+    }
+  },
+  "routes": [
+    {
+      "src": "^/assets/(.*)$",
+      "dest": "/assets/$1"
+    },
+    {
+      "src": "^/robots\\.txt$",
+      "dest": "/robots.txt"
+    },
+    {
+      "src": "^/googleb56d75aa4d48ea32\\.html$",
+      "dest": "/googleb56d75aa4d48ea32.html"
+    },
+    {
+      "src": "^/api/booking-inquiry(\\.php)?$",
+      "dest": "/api/booking-inquiry.php"
+    },
+    {
+      "src": "^/(.*)$",
+      "dest": "/api/index.php"
+    }
+  ]
+}
