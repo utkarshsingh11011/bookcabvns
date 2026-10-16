@@ -15,6 +15,10 @@
       "dest": "/robots.txt"
     },
     {
+      "src": "^/favicon\\.ico$",
+      "dest": "/favicon.ico"
+    },
+    {
       "src": "^/googleb56d75aa4d48ea32\\.html$",
       "dest": "/googleb56d75aa4d48ea32.html"
     },
