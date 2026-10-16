@@ -11,7 +11,7 @@ if (!defined('BCV_DOMAIN')) { require_once __DIR__ . '/config.php'; }
 
       <!-- Brand / About -->
       <div class="footer-brand">
-        <img class="footer-brand__logo" src="/assets/img/logo-white.png" alt="Book Cab Varanasi" width="180" height="48" loading="lazy">
+        <img class="footer-brand__logo" src="/assets/img/logo-white.png" alt="Book Cab Varanasi" width="160" height="52" loading="lazy">
         <p class="footer-brand__text">
           Your trusted cab, tempo traveller and pilgrimage tour partner in Varanasi for over <?php echo BCV_YEARS; ?> years.
           We've served <?php echo BCV_CUSTOMERS; ?> happy travellers across the Kashi-Ayodhya-Prayagraj spiritual circuit.

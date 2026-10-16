@@ -72,7 +72,7 @@ $wa_href = bcv_whatsapp_link($whatsapp_route ?? '');
         <a class="site-logo" href="/" aria-label="Book Cab Varanasi — Home">
           <img src="/assets/img/logo.png"
                alt="Book Cab Varanasi logo"
-               width="200" height="52"
+               width="160" height="52"
                fetchpriority="high">
         </a>
 
