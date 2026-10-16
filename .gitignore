@@ -16,3 +16,5 @@ Desktop.ini
 # Temporary / Scratch
 tmp/
 scratch/
+
+.vercel
