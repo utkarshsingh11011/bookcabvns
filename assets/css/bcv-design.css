@@ -39,8 +39,8 @@
   --sp-24: 6rem;
 
   /* Typography */
-  --font-sans:  'Inter', 'Outfit', system-ui, sans-serif;
-  --font-display: 'Outfit', 'Inter', system-ui, sans-serif;
+  --font-sans:    'Inter', system-ui, -apple-system, sans-serif;
+  --font-display: 'Plus Jakarta Sans', 'Inter', system-ui, sans-serif;
   --fs-xs:   0.75rem;
   --fs-sm:   0.875rem;
   --fs-base: 1rem;
@@ -689,21 +689,22 @@ p  { color: var(--clr-text-muted); line-height: var(--lh-relaxed); }
 
 /* Page Hero (inner pages) */
 .page-hero {
-  background: linear-gradient(135deg, var(--clr-navy) 0%, var(--clr-navy-mid) 100%);
-  padding: var(--sp-12) 0 var(--sp-8);
+  background: linear-gradient(135deg, #0B2545 0%, #163D72 65%, #1B4982 100%);
+  padding: clamp(2.5rem, 5vw, 4rem) 0 clamp(2rem, 4vw, 3rem);
   position: relative;
   overflow: hidden;
+  color: #FFFFFF;
+  border-bottom: 3px solid #E8730A;
 }
-.page-hero::before {
-  content: '';
-  position: absolute;
-  bottom: 0; left: 0; right: 0;
-  height: 80px;
-  background: var(--clr-white);
-  clip-path: ellipse(55% 100% at 50% 100%);
+.page-hero::before { display: none; }
+.page-hero__title {
+  font-family: 'Plus Jakarta Sans', var(--font-sans);
+  color: var(--clr-white);
+  margin-bottom: var(--sp-3);
+  font-weight: 800;
+  letter-spacing: -0.02em;
 }
-.page-hero__title { color: var(--clr-white); margin-bottom: var(--sp-3); }
-.page-hero__desc { color: rgba(255,255,255,0.75); max-width: 600px; }
+.page-hero__desc { color: rgba(255,255,255,0.88); max-width: 680px; font-size: 1.05rem; line-height: 1.6; }
 
 /* ===================================================================
    10. BOOKING FORM
@@ -1192,3 +1193,383 @@ p  { color: var(--clr-text-muted); line-height: var(--lh-relaxed); }
 @media (min-width: 768px) {
   .float-btn { bottom: 120px; }
 }
+
+/* ===================================================================
+   19. ULTRA-PROFESSIONAL VISUAL ENHANCEMENTS (v2.5)
+   =================================================================== */
+
+/* Hero Cinematic Photographic Banner */
+.hero-cinematic {
+  position: relative;
+  background: linear-gradient(115deg, rgba(11, 37, 69, 0.95) 0%, rgba(13, 44, 85, 0.88) 55%, rgba(13, 44, 85, 0.5) 100%),
+              url('/assets/img/varanasi-hero.jpg') center/cover no-repeat;
+  color: var(--clr-white);
+  padding: clamp(3.5rem, 7vw, 6rem) 0 clamp(4.5rem, 8vw, 7rem);
+  overflow: hidden;
+}
+
+.hero-cinematic::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 40px;
+  background: linear-gradient(to top, rgba(248, 250, 252, 1), transparent);
+  pointer-events: none;
+}
+
+/* Hero Badge Pill */
+.hero-pill-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  background: rgba(255, 192, 0, 0.18);
+  border: 1px solid rgba(255, 192, 0, 0.45);
+  backdrop-filter: blur(8px);
+  color: #FFD54F;
+  font-size: 0.8rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  padding: 0.45rem 1.15rem;
+  border-radius: 9999px;
+  margin-bottom: 1.25rem;
+  box-shadow: 0 4px 15px rgba(0,0,0,0.15);
+}
+
+/* Hero Titles */
+.hero-headline {
+  font-family: 'Plus Jakarta Sans', var(--font-sans);
+  font-size: clamp(2.3rem, 5vw, 4rem);
+  font-weight: 800;
+  line-height: 1.15;
+  color: #FFFFFF;
+  margin-bottom: 1.25rem;
+  letter-spacing: -0.02em;
+}
+
+.hero-headline .text-gold {
+  color: #FFC000;
+  background: linear-gradient(90deg, #FFC000 0%, #FF9100 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.hero-subtext {
+  font-size: clamp(1.05rem, 2vw, 1.25rem);
+  color: rgba(255, 255, 255, 0.9);
+  max-width: 680px;
+  line-height: 1.65;
+  margin-bottom: 2rem;
+  font-weight: 400;
+}
+
+/* Pulsing Call / WhatsApp Buttons */
+.btn-whatsapp-pulse {
+  background: #25D366;
+  color: #FFFFFF !important;
+  font-weight: 700;
+  box-shadow: 0 4px 18px rgba(37, 211, 102, 0.4);
+  transition: all 0.25s ease;
+}
+.btn-whatsapp-pulse:hover {
+  background: #20BA5A;
+  transform: translateY(-2px);
+  box-shadow: 0 8px 24px rgba(37, 211, 102, 0.55);
+}
+
+/* Pro Search Booking Bar */
+.pro-search-container {
+  position: relative;
+  z-index: 20;
+  margin-top: -3.5rem;
+  margin-bottom: 2.5rem;
+}
+
+.pro-search-box {
+  background: #FFFFFF;
+  border-radius: 18px;
+  box-shadow: 0 20px 45px rgba(11, 37, 69, 0.12), 0 4px 16px rgba(11, 37, 69, 0.06);
+  border: 1px solid rgba(221, 228, 238, 0.9);
+  padding: clamp(1.25rem, 3vw, 2.25rem);
+}
+
+.pro-search-tabs {
+  display: flex;
+  gap: 0.5rem;
+  margin-bottom: 1.5rem;
+  border-bottom: 1px solid #E2E8F0;
+  padding-bottom: 0.75rem;
+  overflow-x: auto;
+}
+
+.pro-tab-item {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.6rem 1.25rem;
+  font-size: 0.875rem;
+  font-weight: 700;
+  color: #64748B;
+  background: transparent;
+  border: none;
+  border-radius: 9999px;
+  cursor: pointer;
+  white-space: nowrap;
+  transition: all 0.2s ease;
+}
+
+.pro-tab-item.active {
+  background: #0D2C55;
+  color: #FFFFFF;
+  box-shadow: 0 4px 12px rgba(13, 44, 85, 0.25);
+}
+
+.pro-tab-item:hover:not(.active) {
+  background: #F1F5F9;
+  color: #0D2C55;
+}
+
+.pro-search-fields {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  gap: 1.2rem;
+  align-items: flex-end;
+}
+
+.pro-field-group label {
+  display: block;
+  font-size: 0.75rem;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: #0D2C55;
+  margin-bottom: 0.4rem;
+}
+
+.pro-input-wrap {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.pro-input-wrap i {
+  position: absolute;
+  left: 1rem;
+  color: #E8730A;
+  font-size: 1rem;
+  pointer-events: none;
+}
+
+.pro-input-wrap input,
+.pro-input-wrap select {
+  width: 100%;
+  height: 52px;
+  border: 1.5px solid #CBD5E1;
+  border-radius: 10px;
+  padding: 0 0.85rem 0 2.75rem;
+  font-size: 0.925rem;
+  font-weight: 500;
+  color: #1E293B;
+  background: #FFFFFF;
+  transition: border-color 0.2s, box-shadow 0.2s;
+}
+
+.pro-input-wrap input:focus,
+.pro-input-wrap select:focus {
+  outline: none;
+  border-color: #E8730A;
+  box-shadow: 0 0 0 3px rgba(232, 115, 10, 0.15);
+}
+
+.btn-search-cabs {
+  height: 52px;
+  background: linear-gradient(135deg, #FF6F00 0%, #E8730A 100%);
+  color: #FFFFFF !important;
+  font-weight: 800;
+  font-size: 1rem;
+  border: none;
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.6rem;
+  box-shadow: 0 6px 18px rgba(232, 115, 10, 0.35);
+  cursor: pointer;
+  transition: all 0.25s ease;
+  width: 100%;
+}
+
+.btn-search-cabs:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 10px 24px rgba(232, 115, 10, 0.45);
+  filter: brightness(1.05);
+}
+
+/* Professional Card Visuals */
+.card-pro {
+  background: #FFFFFF;
+  border-radius: 16px;
+  border: 1px solid #E2E8F0;
+  overflow: hidden;
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.05);
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  display: flex;
+  flex-direction: column;
+}
+
+.card-pro:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 18px 36px rgba(13, 44, 85, 0.12);
+  border-color: #CBD5E1;
+}
+
+.card-pro__image-wrap {
+  position: relative;
+  width: 100%;
+  height: 200px;
+  overflow: hidden;
+  background: #F1F5F9;
+}
+
+.card-pro__image-wrap img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.5s ease;
+}
+
+.card-pro:hover .card-pro__image-wrap img {
+  transform: scale(1.06);
+}
+
+.card-pro__badge {
+  position: absolute;
+  top: 12px;
+  left: 12px;
+  background: rgba(13, 44, 85, 0.88);
+  backdrop-filter: blur(6px);
+  color: #FFFFFF;
+  font-size: 0.72rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  padding: 0.35rem 0.75rem;
+  border-radius: 9999px;
+  z-index: 2;
+}
+
+.card-pro__badge--gold {
+  background: rgba(245, 158, 11, 0.95);
+  color: #1E293B;
+  font-weight: 800;
+}
+
+.card-pro__price-pill {
+  position: absolute;
+  bottom: 12px;
+  right: 12px;
+  background: #FFFFFF;
+  color: #0D2C55;
+  font-weight: 800;
+  font-size: 0.95rem;
+  padding: 0.35rem 0.85rem;
+  border-radius: 8px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+  z-index: 2;
+}
+
+.card-pro__content {
+  padding: 1.5rem;
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
+  justify-content: space-between;
+}
+
+.card-pro__title {
+  font-family: 'Plus Jakarta Sans', var(--font-sans);
+  font-size: 1.25rem;
+  font-weight: 800;
+  color: #0D2C55;
+  margin-bottom: 0.5rem;
+}
+
+.card-pro__desc {
+  font-size: 0.875rem;
+  color: #64748B;
+  line-height: 1.6;
+  margin-bottom: 1rem;
+}
+
+.chips-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem;
+  margin-bottom: 1.2rem;
+}
+
+.chip-item {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  font-size: 0.75rem;
+  font-weight: 600;
+  background: #F1F5F9;
+  color: #334155;
+  padding: 0.3rem 0.65rem;
+  border-radius: 6px;
+}
+
+/* Testimonial Cards */
+.testimonial-card {
+  background: #FFFFFF;
+  border-radius: 16px;
+  border: 1px solid #E2E8F0;
+  padding: 1.75rem;
+  box-shadow: 0 6px 18px rgba(0,0,0,0.04);
+  transition: all 0.3s ease;
+}
+
+.testimonial-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 14px 30px rgba(0,0,0,0.08);
+  border-color: #CBD5E1;
+}
+
+.testimonial-header {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  margin-bottom: 1rem;
+}
+
+.testimonial-avatar {
+  width: 52px;
+  height: 52px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 2px solid #FFC000;
+}
+
+.testimonial-name {
+  font-weight: 800;
+  color: #0D2C55;
+  font-size: 1rem;
+  margin-bottom: 2px;
+}
+
+.testimonial-meta {
+  font-size: 0.75rem;
+  color: #64748B;
+}
+
+.testimonial-quote {
+  font-size: 0.9rem;
+  color: #334155;
+  line-height: 1.65;
+  font-style: italic;
+  margin-bottom: 1rem;
+}
+

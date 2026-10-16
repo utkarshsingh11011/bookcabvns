@@ -155,19 +155,26 @@ $wa_href = bcv_whatsapp_link($whatsapp_route ?? '');
             <a class="site-nav__link" href="/blog">Travel Guide</a>
           </div>
 
-          <div class="site-nav__item">
-            <a class="site-nav__link btn btn-primary btn-sm" href="#booking-form"
-               onclick="bcvTrack('booking_form_start','header_cta')">
-              Book Now
+          <div class="site-nav__item" style="display:flex;gap:0.5rem;align-items:center;">
+            <a class="btn btn-outline btn-sm" href="tel:+<?php echo BCV_PHONE_RAW; ?>" style="border-color:var(--clr-navy);color:var(--clr-navy);font-weight:700;" onclick="bcvTrack('click_call','header_nav')">
+              <i class="fas fa-phone-alt" aria-hidden="true"></i> <?php echo BCV_PHONE_MAIN; ?>
+            </a>
+            <a class="btn btn-primary btn-sm" href="#quick-search" onclick="bcvTrack('booking_form_start','header_cta')">
+              Book Cab
             </a>
           </div>
 
         </nav>
 
-        <!-- Mobile menu toggle -->
-        <button class="menu-toggle" id="menu-toggle" aria-label="Open navigation menu" aria-expanded="false" aria-controls="mobile-drawer">
-          <span></span><span></span><span></span>
-        </button>
+        <div style="display:flex;align-items:center;">
+          <a href="tel:+<?php echo BCV_PHONE_RAW; ?>" class="mobile-quick-call" aria-label="Call Now" onclick="bcvTrack('click_call','header_mobile_icon')" style="display:flex;align-items:center;justify-content:center;width:38px;height:38px;border-radius:50%;background:#E8730A;color:#fff;font-size:0.9rem;margin-right:0.75rem;text-decoration:none;">
+            <i class="fas fa-phone-alt" aria-hidden="true"></i>
+          </a>
+          <!-- Mobile menu toggle -->
+          <button class="menu-toggle" id="menu-toggle" aria-label="Open navigation menu" aria-expanded="false" aria-controls="mobile-drawer">
+            <span></span><span></span><span></span>
+          </button>
+        </div>
 
       </div><!-- /.header-main__inner -->
     </div><!-- /.container -->

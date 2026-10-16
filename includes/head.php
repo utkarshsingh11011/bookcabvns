@@ -83,17 +83,15 @@ if (!empty($breadcrumbs)) {
 <link rel="apple-touch-icon"  sizes="180x180"  href="/assets/img/favicons/apple-icon-180x180.png">
 <meta name="theme-color"      content="#0D2C55">
 
-<!-- Fonts: preconnect + variable Inter via Google Fonts -->
+<!-- Fonts: Plus Jakarta Sans + Inter via Google Fonts -->
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Outfit:wght@600;700;800&display=swap">
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Outfit:wght@600;700;800&display=swap" media="print" onload="this.media='all'">
-<noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Outfit:wght@600;700;800&display=swap"></noscript>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@500;600;700;800&display=swap">
 
-<!-- FontAwesome 6 (icons) -->
-<link rel="stylesheet" href="/assets/css/fontawesome.min.css">
+<!-- FontAwesome 6 (CDN for guaranteed 100% reliable icon rendering) -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA==" crossorigin="anonymous" referrerpolicy="no-referrer">
 
-<!-- Design System -->
+<!-- Modern Design System -->
 <link rel="stylesheet" href="/assets/css/bcv-design.css">
 
 <!-- Structured Data: BreadcrumbList -->
