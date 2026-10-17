@@ -1,938 +1,289 @@
-<?php
-require_once __DIR__ . '/includes/config.php';
+<?php include("header.php") ?>
+<!-- NOTE: Ideally everything in this <head> block lives inside header.php so there is only ONE <head> on the page. -->
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
 
-// SEO Variables
-$page_title  = 'Book Cab Varanasi | #1 Taxi, Tempo Traveller & Pilgrimage Tour Service';
-$meta_desc   = 'Book a reliable cab, tempo traveller or tour bus in Varanasi. Transparent fares for airport, local sightseeing & outstation trips to Ayodhya & Prayagraj. Call 24/7.';
-$canonical   = 'https://bookcabvaranasi.com/';
-$og_title    = $page_title;
-$og_desc     = $meta_desc;
-$og_image    = 'https://bookcabvaranasi.com/assets/img/og-default.jpg';
-$breadcrumbs = [
-    ['name' => 'Home', 'url' => 'https://bookcabvaranasi.com/'],
-];
-$whatsapp_route = 'Varanasi cab booking';
+    <title>Cab Booking in Varanasi | Taxi to Ayodhya, Prayagraj, Gaya</title>
+    <meta name="description" content="Book taxi, Tempo Traveller & bus in Varanasi. 24/7 cabs for Varanasi to Ayodhya, Prayagraj, Gaya & Lucknow, airport transfer and sightseeing. Call +91-9838409911.">
+    <meta name="author" content="Book Cab Varanasi">
+    <meta name="robots" content="index,follow,max-image-preview:large">
+    <link rel="canonical" href="https://www.bookcabvaranasi.com/">
 
-// Schema.org Structured Data
-$schema_data = [
-    "@context" => "https://schema.org",
-    "@graph" => [
-        [
-            "@type" => ["LocalBusiness", "TaxiService"],
-            "@id" => "https://bookcabvaranasi.com/#business",
-            "name" => "Book Cab Varanasi",
-            "url" => "https://bookcabvaranasi.com/",
-            "telephone" => "+91-9838409911",
-            "email" => "info@bookcabvaranasi.com",
-            "image" => "https://bookcabvaranasi.com/assets/img/og-default.jpg",
-            "priceRange" => "₹₹",
-            "aggregateRating" => [
-                "@type" => "AggregateRating",
-                "ratingValue" => "4.8",
-                "reviewCount" => "470",
-                "bestRating" => "5"
-            ],
-            "address" => [
-                "@type" => "PostalAddress",
-                "streetAddress" => "B31 PCF Plaza Cantonment",
-                "addressLocality" => "Varanasi",
-                "addressRegion" => "Uttar Pradesh",
-                "postalCode" => "221002",
-                "addressCountry" => "IN"
-            ],
-            "geo" => [
-                "@type" => "GeoCoordinates",
-                "latitude" => 25.335649,
-                "longitude" => 82.973915
-            ],
-            "openingHoursSpecification" => [
-                "@type" => "OpeningHoursSpecification",
-                "dayOfWeek" => ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"],
-                "opens" => "00:00",
-                "closes" => "23:59"
-            ],
-            "areaServed" => [
-                ["@type" => "City", "name" => "Varanasi"],
-                ["@type" => "City", "name" => "Ayodhya"],
-                ["@type" => "City", "name" => "Prayagraj"]
-            ],
-            "sameAs" => [
-                "https://www.facebook.com/share/1BRvhF56Uz/",
-                "https://www.instagram.com/bookcabvaranasi/"
-            ]
-        ],
-        [
-            "@type" => "WebSite",
-            "@id" => "https://bookcabvaranasi.com/#website",
-            "name" => "Book Cab Varanasi",
-            "url" => "https://bookcabvaranasi.com/",
-            "publisher" => ["@id" => "https://bookcabvaranasi.com/#business"]
-        ],
-        [
-            "@type" => "FAQPage",
-            "@id" => "https://bookcabvaranasi.com/#faq",
-            "mainEntity" => [
-                [
-                    "@type" => "Question",
-                    "name" => "How do I book a cab with Book Cab Varanasi?",
-                    "acceptedAnswer" => [
-                        "@type" => "Answer",
-                        "text" => "You can book instantly online by filling out our quick booking form, calling our 24/7 helpline at +91-9838409911, or messaging us on WhatsApp at +91-9648974238. Our dispatch team confirms vehicle availability and transparent fixed fares within 10 to 15 minutes."
-                    ]
-                ],
-                [
-                    "@type" => "Question",
-                    "name" => "Are your taxi fares fixed or are there hidden charges?",
-                    "acceptedAnswer" => [
-                        "@type" => "Answer",
-                        "text" => "All our taxi fares are 100% transparent. Fuel charges and driver allowances are included in local and tour packages. Outstation one-way and round-trip base fares are clearly stated upfront, with state highway tolls and parking charges billed as per actual receipts."
-                    ]
-                ],
-                [
-                    "@type" => "Question",
-                    "name" => "Can your taxi drop us right inside the temple premises at Kashi Vishwanath or Ayodhya Ram Mandir?",
-                    "acceptedAnswer" => [
-                        "@type" => "Answer",
-                        "text" => "Due to strict government regulations and high-security pedestrian zones, private four-wheelers cannot enter inner temple corridors. In Varanasi, drivers drop at Godowlia Chowk or Maidagin (300-400m from Vishwanath Dham). In Ayodhya, cabs drop at designated parking plazas (Tedhi Bazar / Amaniganj)."
-                    ]
-                ],
-                [
-                    "@type" => "Question",
-                    "name" => "What vehicles are available for family and large group pilgrimages?",
-                    "acceptedAnswer" => [
-                        "@type" => "Answer",
-                        "text" => "We maintain Swift Dzire (4-seater), Maruti Ertiga (6-seater), Toyota Innova Crysta (7-seater), luxury Force Urbania vans (6-12 seats), and Force Tempo Travellers (12 to 26 seats)."
-                    ]
-                ],
-                [
-                    "@type" => "Question",
-                    "name" => "What is your cancellation and rescheduling policy?",
-                    "acceptedAnswer" => [
-                        "@type" => "Answer",
-                        "text" => "We offer free cancellation up to 4 hours before local trips and 12 hours before outstation trips. Rescheduling is completely free subject to vehicle availability on your new dates."
-                    ]
-                ]
-            ]
-        ]
-    ]
-];
-$schema_json = json_encode($schema_data, JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE);
+    <meta property="og:type" content="website">
+    <meta property="og:site_name" content="Book Cab Varanasi">
+    <meta property="og:title" content="Book Cab Varanasi | Taxi, Tempo Traveller & Bus Service">
+    <meta property="og:description" content="Reliable 24/7 taxi from Varanasi to Ayodhya, Prayagraj, Gaya, Lucknow and airport transfers.">
+    <meta property="og:url" content="https://www.bookcabvaranasi.com/">
+    <meta property="og:image" content="https://www.bookcabvaranasi.com/assets/img/kashi2.jpg">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="geo.region" content="IN-UP">
+    <meta name="geo.placename" content="Varanasi">
 
-include __DIR__ . '/includes/head.php';
-include __DIR__ . '/includes/header.php';
-?>
+    <style>
+        .side-float{position:fixed;width:60px;height:60px;bottom:100px;color:#fff;border-radius:50%;font-size:30px;box-shadow:2px 2px 5px rgba(0,0,0,.3);z-index:9999;display:flex;align-items:center;justify-content:center;text-decoration:none!important;transition:transform .3s ease}
+        .side-float:hover{transform:scale(1.1);color:#fff}
+        .whatsapp-side{left:20px;background:#25d366}
+        .maps-side{right:20px;background:#4285F4}
+        @media(max-width:600px){.side-float{width:50px;height:50px;font-size:24px;bottom:80px}.whatsapp-side{left:15px}.maps-side{right:15px}}
+        .tables td,.tables th{padding:0!important;font-size:13px}
+        .route-card{background:#fff;border-radius:10px;padding:20px;box-shadow:0 4px 14px rgba(0,0,0,.08);height:100%}
+        .route-card h3{font-size:20px;margin-bottom:8px}
+        .faq-item{background:#fff;border-radius:8px;padding:16px 20px;margin-bottom:12px;box-shadow:0 2px 8px rgba(0,0,0,.06)}
+        .faq-item h3{font-size:18px;margin-bottom:6px}
+        .seo-text p{margin-bottom:14px}
+    </style>
 
-<!-- ═══════════════════════════════════════════════════════════
-     1. HERO SECTION (Cinematic Photography + Value Proposition)
-     ═══════════════════════════════════════════════════════════ -->
-<section class="hero-cinematic" aria-labelledby="hero-heading">
-  <div class="container">
-    <div style="max-width: 800px;">
-      
-      <!-- Trust Eyebrow -->
-      <div class="hero-pill-badge">
-        <i class="fas fa-certificate text-gold" aria-hidden="true"></i>
-        <span>Uttar Pradesh's #1 Pilgrimage &amp; Cab Network</span>
-      </div>
+    <!-- Structured data: business -->
+    <script type="application/ld+json">
+    {
+      "@context":"https://schema.org",
+      "@type":["TaxiService","LocalBusiness"],
+      "name":"Book Cab Varanasi",
+      "description":"Taxi, Tempo Traveller, Urbania and mini bus hire in Varanasi for airport transfers, local sightseeing and outstation trips to Ayodhya, Prayagraj, Gaya and Lucknow.",
+      "image":"https://www.bookcabvaranasi.com/assets/img/kashi2.jpg",
+      "@id":"https://www.bookcabvaranasi.com/#business",
+      "url":"https://www.bookcabvaranasi.com/",
+      "telephone":"+91-9838409911",
+      "priceRange":"₹₹",
+      "address":{"@type":"PostalAddress","streetAddress":"B31 PCF Plaza, Cantonment","addressLocality":"Varanasi","postalCode":"221002","addressRegion":"Uttar Pradesh","addressCountry":"IN"},
+      "geo":{"@type":"GeoCoordinates","latitude":25.335649,"longitude":82.973915},
+      "openingHoursSpecification":{"@type":"OpeningHoursSpecification","dayOfWeek":["Monday","Tuesday","Wednesday","Thursday","Friday","Saturday","Sunday"],"opens":"00:00","closes":"23:59"},
+      "areaServed":["Varanasi","Ayodhya","Prayagraj","Gaya","Bodhgaya","Lucknow","Sarnath","Chitrakoot","Jaunpur","Mirzapur"],
+      "sameAs":["https://www.facebook.com/share/1BRvhF56Uz/","https://www.instagram.com/bookcabvaranasi/"]
+    }
+    </script>
 
-      <!-- H1 -->
-      <h1 class="hero-headline" id="hero-heading">
-        Varanasi's Premier <span class="text-gold">Taxi &amp; Tempo Traveller</span> Service
-      </h1>
+    <!-- Structured data: FAQ (must match the visible FAQ below) -->
+    <script type="application/ld+json">
+    {
+      "@context":"https://schema.org",
+      "@type":"FAQPage",
+      "mainEntity":[
+        {"@type":"Question","name":"How can I book a cab in Varanasi?","acceptedAnswer":{"@type":"Answer","text":"Call +91-9838409911, message us on WhatsApp, or fill the online booking form on this page with your vehicle type, route, date and time. We confirm quickly, 24/7."}},
+        {"@type":"Question","name":"What is the taxi fare from Varanasi to Ayodhya, Prayagraj, Gaya or Lucknow?","acceptedAnswer":{"@type":"Answer","text":"Outstation fares are billed per km: Swift Dzire Rs. 13/km, Ertiga and Kia Carens Rs. 16/km, Innova Crysta Rs. 19/km, Tempo Traveller from Rs. 32/km. A minimum of 250 km per day applies. Toll, parking and state entry tax are extra, and driver night allowance applies on overnight trips."}},
+        {"@type":"Question","name":"Do you provide Tempo Traveller and mini bus for groups?","acceptedAnswer":{"@type":"Answer","text":"Yes. We offer 12, 17, 21 and 26 seater Tempo Travellers, Force Urbania and a 35 seater mini bus for pilgrimage, family and corporate groups."}},
+        {"@type":"Question","name":"Is airport pickup and drop available at Varanasi airport?","acceptedAnswer":{"@type":"Answer","text":"Yes, we offer 24/7 airport transfers. Airport transfer starts at Rs. 1,000 for a Swift Dzire and Rs. 1,200 for an Ertiga."}},
+        {"@type":"Question","name":"Do you offer one-way and round-trip taxi?","acceptedAnswer":{"@type":"Answer","text":"Yes. Both one-way and round-trip taxis are available for Ayodhya, Prayagraj, Gaya, Bodhgaya, Lucknow and nearby cities. Call us for the exact quote for your route."}}
+      ]
+    }
+    </script>
+</head>
 
-      <!-- Subtext -->
-      <p class="hero-subtext">
-        Serving over <strong>10,000+ happy pilgrims</strong> and families for over 20+ years. Seamless airport transfers, local Kashi temple sightseeing, and reliable outstation cabs to Ayodhya Ram Mandir &amp; Prayagraj Triveni Sangam with verified polite chauffeurs and guaranteed clean AC vehicles.
-      </p>
+<a href="https://wa.me/919648974238" class="side-float whatsapp-side" target="_blank" rel="noopener" title="Chat on WhatsApp" aria-label="Chat with Book Cab Varanasi on WhatsApp"><i class="fab fa-whatsapp" aria-hidden="true"></i></a>
+<a href="https://www.google.com/maps/place//data=!4m3!3m2!1s0x398e2dd830c6346d:0xb18eb6554100d680!12e1?source=g.page.m._&laa=merchant-review-solicitation" class="side-float maps-side" target="_blank" rel="noopener" title="View Location" aria-label="View Book Cab Varanasi on Google Maps"><i class="fas fa-map-marker-alt" aria-hidden="true"></i></a>
 
-      <!-- Primary Action Buttons -->
-      <div class="flex gap-4" style="flex-wrap: wrap;">
-        <a class="btn btn-primary btn-lg" href="tel:+<?php echo BCV_PHONE_RAW; ?>" onclick="bcvTrack('click_call','hero')">
-          <i class="fas fa-phone-alt" aria-hidden="true"></i> Call +91-9838409911
-        </a>
-        <a class="btn btn-whatsapp-pulse btn-lg" href="<?php echo htmlspecialchars(bcv_whatsapp_link('Hello Book Cab Varanasi, I need a taxi quotation')); ?>" target="_blank" rel="noopener" onclick="bcvTrack('click_whatsapp','hero')">
-          <i class="fab fa-whatsapp" aria-hidden="true"></i> WhatsApp Instant Quote
-        </a>
-      </div>
-
-      <!-- Live Trust Bar Under Hero Buttons -->
-      <div class="flex gap-6 mt-6 items-center" style="flex-wrap: wrap; border-top: 1px solid rgba(255,255,255,0.18); padding-top: 1.5rem;">
-        <div class="flex items-center gap-2 text-sm text-white">
-          <i class="fas fa-star" style="color:#FFC000;" aria-hidden="true"></i>
-          <span><strong>4.8 / 5.0 Rating</strong> (470+ Reviews)</span>
-        </div>
-        <div class="flex items-center gap-2 text-sm text-white">
-          <i class="fas fa-shield-alt" style="color:#25D366;" aria-hidden="true"></i>
-          <span><strong>100% Verified</strong> Chauffeurs</span>
-        </div>
-        <div class="flex items-center gap-2 text-sm text-white">
-          <i class="fas fa-bolt" style="color:#FFD54F;" aria-hidden="true"></i>
-          <span><strong>Zero</strong> Hidden Surges</span>
-        </div>
-      </div>
-
+<main>
+<!-- HERO: only ONE h1 on the page -->
+<div class="as-hero-wrapper hero-slider-4 as-carousel" data-slide-show="1" data-md-slide-show="1" data-fade="true" data-arrows="true" data-xl-arrows="true" data-ml-arrows="true">
+    <div class="as-hero-slide">
+        <div class="as-hero-bg" data-bg-src="assets/img/f1.jpg"></div>
+        <div class="container"><div class="hero-style4">
+            <h1 class="hero-title" data-ani="slideindown" data-ani-delay="0.01s">Book Cab Varanasi: Taxi, Tempo Traveller &amp; Bus Service</h1>
+            <p class="hero-text" data-ani="slideinup" data-ani-delay="0.01s">Trusted 24/7 taxi for Varanasi, Ayodhya, Prayagraj, Gaya &amp; Lucknow.</p>
+            <div class="btn-group" data-ani="slideinup" data-ani-delay="0.01s"><a href="tel:+919838409911" class="as-btn style3">Call Us Now</a> <a href="contact.php" class="as-btn style2">Book A Taxi</a></div>
+        </div></div>
     </div>
-  </div>
-</section>
-
-<!-- ═══════════════════════════════════════════════════════════
-     2. FLOATING BOOKING & SEARCH ENGINE WIDGET
-     ═══════════════════════════════════════════════════════════ -->
-<div class="container pro-search-container" id="quick-search">
-  <div class="pro-search-box">
-    
-    <!-- Trip Tabs -->
-    <div class="pro-search-tabs" role="tablist" aria-label="Trip Types">
-      <button type="button" class="pro-tab-item active" data-type="one_way" role="tab" aria-selected="true">
-        <i class="fas fa-arrow-right" aria-hidden="true"></i> Outstation (One-Way)
-      </button>
-      <button type="button" class="pro-tab-item" data-type="round_trip" role="tab" aria-selected="false">
-        <i class="fas fa-sync-alt" aria-hidden="true"></i> Round Trip / Day Trip
-      </button>
-      <button type="button" class="pro-tab-item" data-type="local" role="tab" aria-selected="false">
-        <i class="fas fa-gopuram" aria-hidden="true"></i> Local Sightseeing (8hr/80km)
-      </button>
-      <button type="button" class="pro-tab-item" data-type="airport" role="tab" aria-selected="false">
-        <i class="fas fa-plane-departure" aria-hidden="true"></i> Airport Transfer (VNS)
-      </button>
+    <div class="as-hero-slide">
+        <div class="as-hero-bg" data-bg-src="assets/img/f2.jpg"></div>
+        <div class="container"><div class="hero-style4">
+            <p class="hero-title" data-ani="slideindown" data-ani-delay="0.0s">Varanasi to Ayodhya &amp; Prayagraj Taxi</p>
+            <p class="hero-text" data-ani="slideinup" data-ani-delay="0.0s">Comfortable one-way and round trips for pilgrimage and tourism.</p>
+            <div class="btn-group" data-ani="slideinup" data-ani-delay="0.00s"><a href="tel:+919838409911" class="as-btn style3">Call Us Now</a> <a href="contact.php" class="as-btn style2">Book A Taxi</a></div>
+        </div></div>
     </div>
-
-    <!-- Search Fields Form -->
-    <form id="hero-quick-form" class="pro-search-fields" onsubmit="return handleHeroSearch(event)">
-      
-      <div class="pro-field-group">
-        <label for="search-origin">Pickup Location</label>
-        <div class="pro-input-wrap">
-          <i class="fas fa-map-marker-alt" aria-hidden="true"></i>
-          <input type="text" id="search-origin" name="origin" placeholder="Varanasi / Airport / Hotel" value="Varanasi" required>
-        </div>
-      </div>
-
-      <div class="pro-field-group" id="dest-wrap">
-        <label for="search-dest">Destination</label>
-        <div class="pro-input-wrap">
-          <i class="fas fa-location-arrow" aria-hidden="true"></i>
-          <select id="search-dest" name="destination">
-            <option value="Ayodhya">Ayodhya (Ram Mandir)</option>
-            <option value="Prayagraj">Prayagraj (Sangam)</option>
-            <option value="Gaya">Gaya / Bodhgaya</option>
-            <option value="Lucknow">Lucknow</option>
-            <option value="Varanasi Local Sightseeing">Varanasi Temple Sightseeing</option>
-            <option value="VNS Babatpur Airport">LBS Airport Babatpur</option>
-          </select>
-        </div>
-      </div>
-
-      <div class="pro-field-group">
-        <label for="search-date">Travel Date</label>
-        <div class="pro-input-wrap">
-          <i class="fas fa-calendar-alt" aria-hidden="true"></i>
-          <input type="date" id="search-date" name="travel_date" required min="<?php echo date('Y-m-d'); ?>" value="<?php echo date('Y-m-d'); ?>">
-        </div>
-      </div>
-
-      <div class="pro-field-group">
-        <label for="search-car">Vehicle Class</label>
-        <div class="pro-input-wrap">
-          <i class="fas fa-car" aria-hidden="true"></i>
-          <select id="search-car" name="vehicle">
-            <option value="Sedan (Swift Dzire)">Sedan (Swift Dzire) · 4 Seats</option>
-            <option value="Ertiga (6-Seater MPV)">Maruti Ertiga · 6 Seats</option>
-            <option value="Innova Crysta">Toyota Innova Crysta · 7 Seats</option>
-            <option value="Force Urbania / Tempo">Force Urbania / Tempo · 9-26 Seats</option>
-          </select>
-        </div>
-      </div>
-
-      <div class="pro-field-group">
-        <button type="submit" class="btn-search-cabs">
-          <i class="fas fa-search" aria-hidden="true"></i> Search Cabs &amp; Fares
-        </button>
-      </div>
-
-    </form>
-
-  </div>
+    <div class="as-hero-slide">
+        <div class="as-hero-bg" data-bg-src="assets/img/f3.jpg"></div>
+        <div class="container"><div class="hero-style4">
+            <p class="hero-title" data-ani="slideindown" data-ani-delay="0.00s">24/7 Varanasi Airport Taxi Service</p>
+            <p class="hero-text" data-ani="slideinup" data-ani-delay="0.0s">Punctual and professional airport pickup and drop.</p>
+            <div class="btn-group" data-ani="slideinup" data-ani-delay="0.00s"><a href="tel:+919838409911" class="as-btn style3">Call Us Now</a> <a href="contact.php" class="as-btn style2">Book A Taxi</a></div>
+        </div></div>
+    </div>
 </div>
 
-<main id="main-content">
-  <div class="container py-8">
-
-    <!-- ═══════════════════════════════════════════════════════════
-         3. CITY HUBS SECTION (With Rich Photography)
-         ═══════════════════════════════════════════════════════════ -->
-    <section class="mb-12">
-      <div class="flex justify-between items-end mb-6" style="flex-wrap:wrap;gap:1rem;">
-        <div>
-          <span class="section-label">Regional Destinations</span>
-          <h2>Explore the Sacred UP Circuit</h2>
+<!-- BOOKING FORM -->
+<div class="space overflow-hidden" id="book" style="background-image:linear-gradient(to left,#d16ba5,#c777b9,#ba83ca,#aa8fd8,#9a9ae1,#8aa7ec,#79b3f4,#69bff8,#52cffe,#41dfff,#46eefa);min-height:300px;">
+    <div class="container">
+        <div class="title-area mb-35 text-center text-xl-start"><span class="sub-title">Taxi Booking Form</span>
+            <h2 class="sec-title">Book Your Cab in Varanasi Online</h2>
         </div>
-        <p class="text-muted text-sm" style="max-width:400px;">Direct, chauffeur-driven taxi service connecting holy shrines with 24/7 doorstep pickup.</p>
-      </div>
-
-      <div class="grid-3 gap-6">
-
-        <!-- Hub: Varanasi -->
-        <div class="card-pro">
-          <div class="card-pro__image-wrap">
-            <img src="/assets/img/varanasi-ghats.jpg" alt="Varanasi Ganges Ghats and Ganga Aarti" loading="lazy">
-            <span class="card-pro__badge">Eternal Kashi</span>
-            <span class="card-pro__price-pill">From ₹1,000</span>
-          </div>
-          <div class="card-pro__content">
-            <div>
-              <h3 class="card-pro__title">Varanasi (Kashi)</h3>
-              <p class="card-pro__desc">LBS Babatpur Airport transfers, 8hr/80km local temple sightseeing, Kashi Vishwanath Dham corridor, and evening Dashashwamedh Ganga Aarti.</p>
-              <div class="chips-row">
-                <span class="chip-item"><i class="fas fa-plane" aria-hidden="true"></i> Airport 26km</span>
-                <span class="chip-item"><i class="fas fa-gopuram" aria-hidden="true"></i> Vishwanath</span>
-                <span class="chip-item"><i class="fas fa-ship" aria-hidden="true"></i> Subah-e-Banaras</span>
-              </div>
+        <div class="row flex-row-reverse">
+            <div class="col-xl-5"><div class="car-img1"><img src="assets/img/normal/booking_car_1.png" alt="Ertiga taxi booking in Varanasi" width="500" height="300" loading="lazy"></div></div>
+            <div class="col-xl-7">
+                <form action="mail1.php" method="POST" class="booking-form style2">
+                    <div class="input-box"><div class="row">
+                        <div class="form-group col-sm-6"><input type="text" class="form-control" name="name" id="name" placeholder="Your Name*" aria-label="Your name" required autocomplete="name"></div>
+                        <div class="form-group col-sm-6"><input type="tel" class="form-control" name="phone" id="phone" placeholder="Phone Number*" aria-label="Phone number" required pattern="[0-9+ ]{10,14}" autocomplete="tel"></div>
+                        <div class="form-group col-sm-6">
+                            <select name="type" class="form-control" aria-label="Vehicle type" required>
+                                <option value="">Pick Vehicle type</option>
+                                <option>Swift Dzire</option>
+                                <option>Maruti Ertiga</option>
+                                <option>Kia Carens</option>
+                                <option>Toyota Innova</option>
+                                <option>Toyota Innova Crysta</option>
+                                <option>Honda City</option>
+                                <option>Cruiser 13 Seater</option>
+                                <option>Tempo Traveller 12 Seater</option>
+                                <option>Tempo Traveller 17 Seater</option>
+                                <option>Tempo Traveller 21 Seater</option>
+                                <option>Tempo Traveller 26 Seater</option>
+                                <option>Force Urbania</option>
+                                <option>Mini Bus 35 Seater</option>
+                            </select>
+                        </div>
+                        <div class="form-group col-sm-6"><input type="text" class="form-control" name="s-destination" id="s-destination" placeholder="Pickup Location" aria-label="Pickup location"></div>
+                        <div class="form-group col-sm-6"><input type="text" class="form-control" name="e-destination" id="e-destination" placeholder="Drop Location" aria-label="Drop location"></div>
+                        <div class="form-group col-sm-6"><input type="text" class="date-pick form-control" name="date" id="date-pick" placeholder="Select Date" aria-label="Travel date"></div>
+                        <div class="form-group col-sm-6"><input type="text" class="time-pick form-control" name="time" id="time-pick" placeholder="Select Time" aria-label="Pickup time"></div>
+                        <div class="form-btn col-sm-6"><button type="submit" name="submit" class="as-btn">Book Taxi Now</button></div>
+                    </div>
+                    <p class="form-messages mb-0 mt-3"></p></div>
+                </form>
             </div>
-            <a class="btn btn-primary btn-full mt-2" href="/locations/varanasi/">Explore Varanasi Cabs ›</a>
-          </div>
         </div>
+    </div>
+</div>
 
-        <!-- Hub: Ayodhya -->
-        <div class="card-pro">
-          <div class="card-pro__image-wrap">
-            <img src="/assets/img/ayodhya-temple.jpg" alt="Ayodhya Ram Mandir Sanctum" loading="lazy">
-            <span class="card-pro__badge card-pro__badge--gold">Ram Janmabhoomi</span>
-            <span class="card-pro__price-pill">From ₹6,500</span>
-          </div>
-          <div class="card-pro__content">
-            <div>
-              <h3 class="card-pro__title">Ayodhya Dham</h3>
-              <p class="card-pro__desc">Direct highway cabs to Shri Ram Janmabhoomi Mandir, Hanuman Garhi, Kanak Bhawan, and Saryu River Maha Aarti with Tedhi Bazar parking support.</p>
-              <div class="chips-row">
-                <span class="chip-item"><i class="fas fa-road" aria-hidden="true"></i> 200 km · 4.5 hr</span>
-                <span class="chip-item"><i class="fas fa-monument" aria-hidden="true"></i> Ram Mandir</span>
-                <span class="chip-item"><i class="fas fa-water" aria-hidden="true"></i> Saryu Ghat</span>
-              </div>
-            </div>
-            <a class="btn btn-primary btn-full mt-2" href="/locations/ayodhya/">Explore Ayodhya Cabs ›</a>
-          </div>
+<!-- ABOUT -->
+<section class="space">
+    <div class="container"><div class="row align-items-center">
+        <div class="col-lg-6 pe-xl-5 mb-5 mb-lg-0"><div class="as-video"><img class="w-100" src="assets/img/kashi2.jpg" alt="Book Cab Varanasi taxi service near Kashi Vishwanath" width="640" height="420" loading="lazy"></div></div>
+        <div class="col-lg-6 seo-text">
+            <h2 class="mt-n3">Best Taxi &amp; Cab Service in Varanasi</h2>
+            <p>Book Cab Varanasi is a trusted taxi, Tempo Traveller and bus operator serving Varanasi, Ayodhya and Prayagraj. With over 20 years in the travel industry and more than 10,000 happy customers, we make every trip to Kashi Vishwanath Temple, Ram Mandir Ayodhya or the Prayagraj Sangam smooth, safe and on time.</p>
+            <p>Choose from AC cabs, Innova Crysta, Ertiga, Tempo Travellers, Force Urbania and 35 seater mini buses. We handle airport transfers, local sightseeing, Ganga Aarti boat rides, and one-way or round-trip outstation taxis from Varanasi to Ayodhya, Prayagraj, Gaya, Bodhgaya, Lucknow, Sarnath and Chitrakoot, with transparent per-km pricing.</p>
+            <p>Book Cab Varanasi is owned and operated by Mr. Rajesh Kumar Singh and Mr. Brijesh Kumar Singh. Operations are managed by Mr. Utkarsh Singh.</p>
+            <a href="about.php" class="as-btn">More About Us</a>
         </div>
+    </div></div>
+    <div class="shape-mockup movingTopRight d-none d-xl-block" data-top="-10%" data-left="-10%"><img src="assets/img/shape/line_1.png" alt="" aria-hidden="true"></div>
+    <div class="shape-mockup movingBottomLeft d-none d-xl-block" data-bottom="-10%" data-right="-10%"><img src="assets/img/shape/line_2.png" alt="" aria-hidden="true"></div>
+</section>
 
-        <!-- Hub: Prayagraj -->
-        <div class="card-pro">
-          <div class="card-pro__image-wrap">
-            <img src="/assets/img/prayagraj-sangam.jpg" alt="Prayagraj Triveni Sangam Confluence" loading="lazy">
-            <span class="card-pro__badge">Triveni Sangam</span>
-            <span class="card-pro__price-pill">From ₹3,250</span>
-          </div>
-          <div class="card-pro__content">
-            <div>
-              <h3 class="card-pro__title">Prayagraj (Allahabad)</h3>
-              <p class="card-pro__desc">Holy dip at the confluence of Ganga, Yamuna &amp; Saraswati, subterranean Bade Hanuman temple, Anand Bhavan, and Magh Mela transportation.</p>
-              <div class="chips-row">
-                <span class="chip-item"><i class="fas fa-road" aria-hidden="true"></i> 125 km · 2.5 hr</span>
-                <span class="chip-item"><i class="fas fa-water" aria-hidden="true"></i> Holy Snan</span>
-                <span class="chip-item"><i class="fas fa-hands-praying" aria-hidden="true"></i> Bade Hanuman</span>
-              </div>
-            </div>
-            <a class="btn btn-primary btn-full mt-2" href="/locations/prayagraj/">Explore Prayagraj Cabs ›</a>
-          </div>
+<?php include("taxirental.php") ?>
+
+<!-- POPULAR ROUTES (NEW): create these landing pages, one per route -->
+<section class="space" id="routes">
+    <div class="container">
+        <div class="title-area text-center"><span class="sub-title">Outstation Taxi</span>
+            <h2 class="sec-title">Popular Taxi Routes from Varanasi</h2>
+            <p>One-way and round-trip cabs with experienced drivers. Distances and times are approximate.</p>
         </div>
-
-      </div>
-    </section>
-
-    <!-- ═══════════════════════════════════════════════════════════
-         4. POPULAR INTERCITY ROUTES (Verified Fares)
-         ═══════════════════════════════════════════════════════════ -->
-    <section class="mb-12">
-      <div class="flex justify-between items-end mb-6" style="flex-wrap:wrap;gap:1rem;">
-        <div>
-          <span class="section-label">Transparent Tariffs</span>
-          <h2>Popular Intercity Cab Routes</h2>
+        <div class="row g-4">
+            <div class="col-md-6 col-xl-3"><div class="route-card"><h3><a href="varanasi-to-ayodhya-taxi.php">Varanasi to Ayodhya Taxi</a></h3><p>About 200 km, 4 to 5 hours. Ram Mandir, Hanuman Garhi and Saryu Ghat darshan.</p><a href="varanasi-to-ayodhya-taxi.php">View details &rarr;</a></div></div>
+            <div class="col-md-6 col-xl-3"><div class="route-card"><h3><a href="varanasi-to-prayagraj-taxi.php">Varanasi to Prayagraj Taxi</a></h3><p>About 120 km, 2.5 to 3 hours. Triveni Sangam, Allahabad Fort and Anand Bhawan.</p><a href="varanasi-to-prayagraj-taxi.php">View details &rarr;</a></div></div>
+            <div class="col-md-6 col-xl-3"><div class="route-card"><h3><a href="varanasi-to-gaya-taxi.php">Varanasi to Gaya Taxi</a></h3><p>About 250 km, 4.5 to 5 hours. Vishnupad Temple, Pind Daan and Bodhgaya.</p><a href="varanasi-to-gaya-taxi.php">View details &rarr;</a></div></div>
+            <div class="col-md-6 col-xl-3"><div class="route-card"><h3><a href="varanasi-to-lucknow-taxi.php">Varanasi to Lucknow Taxi</a></h3><p>About 300 km, 5 to 6 hours. Comfortable highway travel for business and family trips.</p><a href="varanasi-to-lucknow-taxi.php">View details &rarr;</a></div></div>
         </div>
-        <a class="btn btn-outline btn-sm" href="/services/outstation-taxi-varanasi/">View All 20+ Routes ›</a>
-      </div>
+        <p class="text-center mt-4">Also available: Ayodhya to Varanasi, Prayagraj to Varanasi, Gaya to Varanasi, Lucknow to Varanasi, Bodhgaya, Chitrakoot, Jaunpur, Mirzapur and Sarnath. <a href="contact.php">Ask for a custom quote</a>.</p>
+    </div>
+</section>
 
-      <div class="grid-3 gap-6">
-
-        <div class="card card-route">
-          <div class="card-route__body">
-            <div class="card-route__cities">
-              <span>Varanasi</span>
-              <span class="card-route__arrow">→</span>
-              <span>Ayodhya</span>
-            </div>
-            <div class="card-route__meta">
-              <span class="card-route__tag"><i class="fas fa-road" aria-hidden="true"></i> 200 km</span>
-              <span class="card-route__tag"><i class="fas fa-clock" aria-hidden="true"></i> ~4.5 Hours</span>
-              <span class="card-route__tag"><i class="fas fa-shield-alt" aria-hidden="true"></i> NH-27</span>
-            </div>
-            <div class="flex justify-between items-center mt-3 pt-3" style="border-top:1px solid #E2E8F0;">
-              <div>
-                <span class="text-xs text-muted">Sedan One-Way</span>
-                <div class="card-route__fare">₹6,500</div>
-              </div>
-              <a class="btn btn-primary btn-sm" href="/routes/varanasi-to-ayodhya-cab/">Book Cab ›</a>
-            </div>
-          </div>
+<!-- WHY CHOOSE US -->
+<section class="space" data-bg-src="" data-opacity="7" data-overlay="overlay2">
+    <div class="container">
+        <div class="row justify-content-center"><div class="col-xl-6 col-lg-7 col-md-10"><div class="title-area text-center"><h2 class="sec-title text-white">Why Choose Book Cab Varanasi?</h2></div></div></div>
+        <div class="row as-carousel dot-style2" data-slide-show="4" data-lg-slide-show="3" data-md-slide-show="2" data-sm-slide-show="2" data-xs-slide-show="1">
+            <div class="col-sm-6 col-lg-4 col-xl-3"><div class="feature-box"><div class="feature-box_icon layer-btn"><img src="assets/img/icon/feature_1.svg" alt="Safe taxi ride icon" width="60" height="60" loading="lazy"></div><h3 class="feature-box_title">100% Safe</h3><div class="feature-box_img"><img src="assets/img/icon/feature_1.svg" alt="" aria-hidden="true"></div></div></div>
+            <div class="col-sm-6 col-lg-4 col-xl-3"><div class="feature-box"><div class="feature-box_icon layer-btn"><img src="assets/img/icon/feature_2.svg" alt="Quick ride icon" width="60" height="60" loading="lazy"></div><h3 class="feature-box_title">Quick Ride</h3><div class="feature-box_img"><img src="assets/img/icon/feature_2.svg" alt="" aria-hidden="true"></div></div></div>
+            <div class="col-sm-6 col-lg-4 col-xl-3"><div class="feature-box"><div class="feature-box_icon layer-btn"><img src="assets/img/icon/feature_3.svg" alt="Fast pickup icon" width="60" height="60" loading="lazy"></div><h3 class="feature-box_title">Fast Pickups</h3><div class="feature-box_img"><img src="assets/img/icon/feature_3.svg" alt="" aria-hidden="true"></div></div></div>
+            <div class="col-sm-6 col-lg-4 col-xl-3"><div class="feature-box"><div class="feature-box_icon layer-btn"><img src="assets/img/icon/feature_4.svg" alt="Multiple destinations icon" width="60" height="60" loading="lazy"></div><h3 class="feature-box_title">Many Destinations</h3><div class="feature-box_img"><img src="assets/img/icon/feature_4.svg" alt="" aria-hidden="true"></div></div></div>
         </div>
+    </div>
+    <div class="particle" id="particle1"></div>
+    <div class="shape-mockup z-index-3 jump d-none d-xl-block" data-bottom="5%" data-right="2%"><img src="assets/img/shape/taxi_3.png" alt="" aria-hidden="true"></div>
+</section>
 
-        <div class="card card-route">
-          <div class="card-route__body">
-            <div class="card-route__cities">
-              <span>Varanasi</span>
-              <span class="card-route__arrow">→</span>
-              <span>Prayagraj</span>
-            </div>
-            <div class="card-route__meta">
-              <span class="card-route__tag"><i class="fas fa-road" aria-hidden="true"></i> 125 km</span>
-              <span class="card-route__tag"><i class="fas fa-clock" aria-hidden="true"></i> ~2.5 Hours</span>
-              <span class="card-route__tag"><i class="fas fa-shield-alt" aria-hidden="true"></i> 6-Lane NH-19</span>
-            </div>
-            <div class="flex justify-between items-center mt-3 pt-3" style="border-top:1px solid #E2E8F0;">
-              <div>
-                <span class="text-xs text-muted">Sedan One-Way</span>
-                <div class="card-route__fare">₹3,250</div>
-              </div>
-              <a class="btn btn-primary btn-sm" href="/routes/varanasi-to-prayagraj-taxi/">Book Cab ›</a>
-            </div>
-          </div>
+<?php include("airportrental.php") ?>
+
+<!-- CALL / REVIEW -->
+<section class="space position-relative">
+    <div class="container"><div class="row align-items-center">
+        <div class="col-lg-6 mb-4 mb-lg-0"><div class="shape-img1"><img src="assets/img/review2.jpg" alt="Happy customers of Book Cab Varanasi" width="600" height="400" loading="lazy"><div class="shape"></div></div></div>
+        <div class="col-lg-6 ps-2 ps-lg-5">
+            <h2 class="h4 mb-20">CALL US TO BOOK A TAXI</h2>
+            <a href="tel:+919838409911" class="cta-call">+91-9838409911</a><br>
+            <a href="https://g.page/r/CYDWAEFVto6xEAE/review" target="_blank" rel="noopener" style="display:inline-block;background:#4285F4;color:#fff;padding:12px 24px;text-decoration:none;font-size:16px;border-radius:8px;font-family:Arial,sans-serif;margin-top:20px;box-shadow:0 4px 6px rgba(0,0,0,.1);">Review Us On Google</a>
         </div>
+    </div></div>
+    <div class="sec-shape1"><img src="assets/img/shape/ladies_bag.png" alt="" aria-hidden="true"></div>
+</section>
 
-        <div class="card card-route">
-          <div class="card-route__body">
-            <div class="card-route__cities">
-              <span>Prayagraj</span>
-              <span class="card-route__arrow">→</span>
-              <span>Ayodhya</span>
-            </div>
-            <div class="card-route__meta">
-              <span class="card-route__tag"><i class="fas fa-road" aria-hidden="true"></i> 160 km</span>
-              <span class="card-route__tag"><i class="fas fa-clock" aria-hidden="true"></i> ~3.5 Hours</span>
-              <span class="card-route__tag"><i class="fas fa-shield-alt" aria-hidden="true"></i> NH-330</span>
-            </div>
-            <div class="flex justify-between items-center mt-3 pt-3" style="border-top:1px solid #E2E8F0;">
-              <div>
-                <span class="text-xs text-muted">Sedan One-Way</span>
-                <div class="card-route__fare">₹4,500</div>
-              </div>
-              <a class="btn btn-primary btn-sm" href="/routes/prayagraj-to-ayodhya-cab/">Book Cab ›</a>
-            </div>
-          </div>
+<!-- FLEET -->
+<section class="space">
+    <div class="container">
+        <div class="title-area text-center"><span class="sub-title">Our Fleet</span><h2 class="sec-title">Tempo Traveller, Urbania &amp; Bus on Rent in Varanasi</h2></div>
+        <div class="row slider-shadow" data-slide-show="3" data-lg-slide-show="2" data-md-slide-show="2" data-sm-slide-show="1" data-arrows="true" data-xl-arrows="true" data-ml-arrows="true">
+            <div class="col-md-6 col-xl-3"><div class="blog-box"><div class="blog-img"><img src="assets/img/urbania2.jpg" alt="Force Urbania on rent in Varanasi" width="400" height="260" loading="lazy"></div><div class="blog-content"><h3 class="blog-title">Force Urbania @ Rs. 35/km</h3></div></div></div>
+            <div class="col-md-6 col-xl-3"><div class="blog-box"><div class="blog-img"><img src="assets/img/17.jpg" alt="17 seater Tempo Traveller on rent in Varanasi" width="400" height="260" loading="lazy"></div><div class="blog-content"><h3 class="blog-title">Tempo Traveller 17 Seater</h3></div></div></div>
+            <div class="col-md-6 col-xl-3"><div class="blog-box"><div class="blog-img"><img src="assets/img/21.jpg" alt="21 seater Tempo Traveller on rent in Varanasi" width="400" height="260" loading="lazy"></div><div class="blog-content"><h3 class="blog-title">Tempo Traveller 21 Seater</h3></div></div></div>
+            <div class="col-md-6 col-xl-3"><div class="blog-box"><div class="blog-img"><img src="assets/img/26.jpg" alt="26 seater Tempo Traveller on rent in Varanasi" width="400" height="260" loading="lazy"></div><div class="blog-content"><h3 class="blog-title">Tempo Traveller 26 Seater</h3></div></div></div>
+            <div class="col-md-6 col-xl-3"><div class="blog-box"><div class="blog-img"><img src="assets/img/Bus-Service-Varanasi.jpg" alt="35 seater mini bus hire in Varanasi" width="400" height="260" loading="lazy"></div><div class="blog-content"><h3 class="blog-title">35 Seater Mini Bus</h3></div></div></div>
+            <div class="col-md-6 col-xl-3"><div class="blog-box"><div class="blog-img"><img src="assets/img/AC-Buses-Online-Booking.jpg" alt="AC bus booking Varanasi to Ayodhya and Prayagraj" width="400" height="260" loading="lazy"></div><div class="blog-content"><h3 class="blog-title">AC Bus Booking</h3></div></div></div>
         </div>
+    </div>
+</section>
 
-        <div class="card card-route">
-          <div class="card-route__body">
-            <div class="card-route__cities">
-              <span>Ayodhya</span>
-              <span class="card-route__arrow">→</span>
-              <span>Varanasi</span>
-            </div>
-            <div class="card-route__meta">
-              <span class="card-route__tag"><i class="fas fa-road" aria-hidden="true"></i> 200 km</span>
-              <span class="card-route__tag"><i class="fas fa-clock" aria-hidden="true"></i> ~4.5 Hours</span>
-              <span class="card-route__tag"><i class="fas fa-check-circle" aria-hidden="true"></i> Catch Aarti</span>
-            </div>
-            <div class="flex justify-between items-center mt-3 pt-3" style="border-top:1px solid #E2E8F0;">
-              <div>
-                <span class="text-xs text-muted">Sedan One-Way</span>
-                <div class="card-route__fare">₹6,500</div>
-              </div>
-              <a class="btn btn-primary btn-sm" href="/routes/ayodhya-to-varanasi-cab/">Book Cab ›</a>
-            </div>
-          </div>
+<section class="space">
+    <div class="container">
+        <div class="title-area text-center"><span class="sub-title">Our Luxury Fleet</span><h2 class="sec-title">Luxury Car Rental in Varanasi</h2></div>
+        <div class="row slider-shadow" data-slide-show="3" data-lg-slide-show="2" data-md-slide-show="2" data-sm-slide-show="1" data-arrows="true" data-xl-arrows="true" data-ml-arrows="true">
+            <div class="col-md-6 col-xl-3"><div class="blog-box"><div class="blog-img"><img src="assets/img/audi.jpg" alt="Audi luxury car rental in Varanasi" width="400" height="260" loading="lazy"></div><div class="blog-content"><h3 class="blog-title">Audi</h3></div></div></div>
+            <div class="col-md-6 col-xl-3"><div class="blog-box"><div class="blog-img"><img src="assets/img/Mercedes_C-Class_C_220_d_AMG_Line_4MATIC_Cabriolet1.png" alt="Mercedes luxury car rental in Varanasi" width="400" height="260" loading="lazy"></div><div class="blog-content"><h3 class="blog-title">Mercedes</h3></div></div></div>
+            <div class="col-md-6 col-xl-3"><div class="blog-box"><div class="blog-img"><img src="assets/img/2020_bmw_5_series_angularfront.jpg" alt="BMW luxury car rental in Varanasi" width="400" height="260" loading="lazy"></div><div class="blog-content"><h3 class="blog-title">BMW</h3></div></div></div>
+            <div class="col-md-6 col-xl-3"><div class="blog-box"><div class="blog-img"><img src="assets/img/fortuner.jpg" alt="Toyota Fortuner SUV rental in Varanasi" width="400" height="260" loading="lazy"></div><div class="blog-content"><h3 class="blog-title">Fortuner</h3></div></div></div>
         </div>
+    </div>
+</section>
 
-        <div class="card card-route">
-          <div class="card-route__body">
-            <div class="card-route__cities">
-              <span>Prayagraj</span>
-              <span class="card-route__arrow">→</span>
-              <span>Varanasi</span>
-            </div>
-            <div class="card-route__meta">
-              <span class="card-route__tag"><i class="fas fa-road" aria-hidden="true"></i> 125 km</span>
-              <span class="card-route__tag"><i class="fas fa-clock" aria-hidden="true"></i> ~2.5 Hours</span>
-              <span class="card-route__tag"><i class="fas fa-water" aria-hidden="true"></i> Sangam Pickup</span>
-            </div>
-            <div class="flex justify-between items-center mt-3 pt-3" style="border-top:1px solid #E2E8F0;">
-              <div>
-                <span class="text-xs text-muted">Sedan One-Way</span>
-                <div class="card-route__fare">₹3,250</div>
-              </div>
-              <a class="btn btn-primary btn-sm" href="/routes/prayagraj-to-varanasi-taxi/">Book Cab ›</a>
-            </div>
-          </div>
+<!-- TARIFF -->
+<section class="cab-services" id="tariff">
+    <div class="container"><div class="row"><div class="col-md-12">
+        <div class="tj-heading-style text-center mb-4"><h2 class="h3">Varanasi Taxi Fare &amp; Tariff 2026</h2></div>
+        <div class="table-responsive">
+            <table class="table tables table-striped table-hover" style="border-color:#ddd;text-align:center;border-collapse:collapse;" border="1" width="100%">
+                <caption class="visually-hidden">Taxi, Tempo Traveller and bus tariff from Varanasi</caption>
+                <thead>
+                    <tr class="table-dark" style="font-weight:bold;background:#212529;color:#fff;">
+                        <th scope="col">Vehicle Type</th><th scope="col">Airport Transfer</th><th scope="col">Local City (8 Hours)</th><th scope="col">Local City (12 Hours)</th><th scope="col">Outstation (Per KM)</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr><th scope="row" style="background:#212529;color:#fff;">Swift Dzire</th><td>Rs. 1,000</td><td>Rs. 2,000 <small>(Max 80 Kms)</small></td><td>Rs. 2,600 <small>(Max 120 Kms)</small></td><td>Rs. 13 / KM</td></tr>
+                    <tr><th scope="row" style="background:#212529;color:#fff;">Maruti Ertiga</th><td>Rs. 1,200</td><td>Rs. 2,400 <small>(Max 80 Kms)</small></td><td>Rs. 3,200 <small>(Max 120 Kms)</small></td><td>Rs. 16 / KM</td></tr>
+                    <tr><th scope="row" style="background:#212529;color:#fff;">Kia Carens</th><td>Rs. 1,200</td><td>Rs. 2,400 <small>(Max 80 Kms)</small></td><td>Rs. 3,200 <small>(Max 120 Kms)</small></td><td>Rs. 16 / KM</td></tr>
+                    <tr><th scope="row" style="background:#212529;color:#fff;">Toyota Innova Crysta</th><td>Rs. 1,500</td><td>Rs. 3,500 <small>(Max 80 Kms)</small></td><td>Rs. 4,500 <small>(Max 120 Kms)</small></td><td>Rs. 19 / KM</td></tr>
+                    <tr><th scope="row" style="background:#212529;color:#fff;">Tempo Traveller <small>(16 / 17 Seater)</small></th><td>Rs. 2,500</td><td>Rs. 5,000 <small>(Max 80 Kms)</small></td><td>Rs. 6,000 <small>(Max 120 Kms)</small></td><td>Rs. 32 / KM</td></tr>
+                    <tr><th scope="row" style="background:#212529;color:#fff;">Tempo Traveller <small>(21 Seater)</small></th><td>Rs. 3,000</td><td>Rs. 6,000 <small>(Max 80 Kms)</small></td><td>Rs. 7,000 <small>(Max 120 Kms)</small></td><td>Rs. 32 / KM</td></tr>
+                    <tr><th scope="row" style="background:#212529;color:#fff;">Tempo Traveller <small>(26 Seater)</small></th><td>Rs. 3,500</td><td>Rs. 6,500 <small>(Max 80 Kms)</small></td><td>Rs. 7,500 <small>(Max 120 Kms)</small></td><td>Rs. 35 / KM</td></tr>
+                    <tr><th scope="row" style="background:#212529;color:#fff;">Force Urbania</th><td>Rs. 3,500</td><td>Rs. 6,500 <small>(Max 80 Kms)</small></td><td>Rs. 7,500 <small>(Max 120 Kms)</small></td><td>Rs. 35 / KM</td></tr>
+                    <tr><th scope="row" style="background:#212529;color:#fff;">35 Seater Minibus</th><td>On Request</td><td>On Request</td><td>On Request</td><td style="font-weight:bold;color:#d16ba5;">Rs. 55 / KM <br><small style="color:#555;">(Toll, Parking &amp; Night Charges Included)</small></td></tr>
+                    <tr class="table-primary" style="font-weight:bold;background:#e3f2fd;">
+                        <td colspan="3" style="text-align:left;padding-left:15px;">Driver Night Allowance:<br>&bull; Tempo Travellers, Urbania &amp; Minibus: Rs. 500/Day<br>&bull; Toyota Innova Crysta: Rs. 400/Day<br>&bull; Swift Dzire, Ertiga &amp; Kia Carens: Rs. 300/Day</td>
+                        <td colspan="2" style="text-align:left;padding-left:15px;vertical-align:top;">Outstation Terms:<br>&bull; Minimum billing of 250 KM per day.<br>&bull; Toll, parking and state entry tax extra for all vehicles except the 35 Seater Minibus.</td>
+                    </tr>
+                    <tr style="font-weight:bold;"><td style="height:50px;font-size:16px;background:#f8c12c;color:#000;" colspan="5">Note: Local packages run on exact 8-hour or 12-hour limits. Parking, toll tax and cross-state permits are extra as per actual receipts.</td></tr>
+                </tbody>
+            </table>
         </div>
+    </div></div></div>
+</section>
 
-        <div class="card card-route">
-          <div class="card-route__body">
-            <div class="card-route__cities">
-              <span>Varanasi</span>
-              <span class="card-route__arrow">→</span>
-              <span>Gaya / Bodhgaya</span>
-            </div>
-            <div class="card-route__meta">
-              <span class="card-route__tag"><i class="fas fa-road" aria-hidden="true"></i> 245 km</span>
-              <span class="card-route__tag"><i class="fas fa-clock" aria-hidden="true"></i> ~5.5 Hours</span>
-              <span class="card-route__tag"><i class="fas fa-om" aria-hidden="true"></i> Pind Daan Yatra</span>
-            </div>
-            <div class="flex justify-between items-center mt-3 pt-3" style="border-top:1px solid #E2E8F0;">
-              <div>
-                <span class="text-xs text-muted">Sedan One-Way</span>
-                <div class="card-route__fare">₹8,500</div>
-              </div>
-              <a class="btn btn-primary btn-sm" href="/services/outstation-taxi-varanasi/">Book Cab ›</a>
-            </div>
-          </div>
-        </div>
-
-      </div>
-    </section>
-
-    <!-- ═══════════════════════════════════════════════════════════
-         5. FLEET SHOWCASE (Real Vehicle Photos & Specs)
-         ═══════════════════════════════════════════════════════════ -->
-    <section class="mb-12">
-      <div class="flex justify-between items-end mb-6" style="flex-wrap:wrap;gap:1rem;">
-        <div>
-          <span class="section-label">Pristine Vehicles</span>
-          <h2>Our Chauffeur-Driven Fleet</h2>
-        </div>
-        <p class="text-muted text-sm" style="max-width:400px;">Every car is thoroughly detailed, air-conditioned, and GPS-monitored before dispatch.</p>
-      </div>
-
-      <div class="grid-4 gap-6">
-
-        <!-- Fleet 1: Dzire -->
-        <div class="card-pro">
-          <div class="card-pro__image-wrap">
-            <img src="/assets/img/car-sedan.jpg" alt="Maruti Swift Dzire Sedan Taxi" loading="lazy">
-            <span class="card-pro__badge">Budget Value</span>
-            <span class="card-pro__price-pill">₹2,000 / 8hr</span>
-          </div>
-          <div class="card-pro__content">
-            <div>
-              <h3 class="card-pro__title">Swift Dzire / Sedan</h3>
-              <p class="card-pro__desc">Smooth, air-conditioned, fuel-efficient sedan ideal for couples and small families.</p>
-              <div class="chips-row">
-                <span class="chip-item"><i class="fas fa-users" aria-hidden="true"></i> 4 Seats</span>
-                <span class="chip-item"><i class="fas fa-snowflake" aria-hidden="true"></i> AC</span>
-                <span class="chip-item"><i class="fas fa-suitcase" aria-hidden="true"></i> 2 Bags</span>
-              </div>
-            </div>
-            <div class="flex gap-2 mt-2">
-              <a class="btn btn-outline btn-sm flex-1 text-center" href="/fleet/sedan-cab-rental/">Details</a>
-              <a class="btn btn-whatsapp btn-sm flex-1 text-center" href="<?php echo htmlspecialchars(bcv_whatsapp_link('I want to book a Swift Dzire sedan')); ?>" target="_blank" rel="noopener">WhatsApp</a>
-            </div>
-          </div>
-        </div>
-
-        <!-- Fleet 2: Ertiga -->
-        <div class="card-pro">
-          <div class="card-pro__image-wrap">
-            <img src="/assets/img/car-ertiga.jpg" alt="Maruti Ertiga 6 Seater MPV" loading="lazy">
-            <span class="card-pro__badge card-pro__badge--gold">Family Favorite</span>
-            <span class="card-pro__price-pill">₹2,400 / 8hr</span>
-          </div>
-          <div class="card-pro__content">
-            <div>
-              <h3 class="card-pro__title">Maruti Ertiga (MPV)</h3>
-              <p class="card-pro__desc">Versatile 6-seater with roof-mounted rear AC blowers and foldable third-row luggage room.</p>
-              <div class="chips-row">
-                <span class="chip-item"><i class="fas fa-users" aria-hidden="true"></i> 6 Seats</span>
-                <span class="chip-item"><i class="fas fa-snowflake" aria-hidden="true"></i> Dual AC</span>
-                <span class="chip-item"><i class="fas fa-suitcase" aria-hidden="true"></i> 4 Bags</span>
-              </div>
-            </div>
-            <div class="flex gap-2 mt-2">
-              <a class="btn btn-outline btn-sm flex-1 text-center" href="/fleet/ertiga-cab-rental/">Details</a>
-              <a class="btn btn-whatsapp btn-sm flex-1 text-center" href="<?php echo htmlspecialchars(bcv_whatsapp_link('I want to book an Ertiga MPV')); ?>" target="_blank" rel="noopener">WhatsApp</a>
-            </div>
-          </div>
-        </div>
-
-        <!-- Fleet 3: Innova Crysta -->
-        <div class="card-pro">
-          <div class="card-pro__image-wrap">
-            <img src="/assets/img/car-innova.jpg" alt="Toyota Innova Crysta Luxury Cab" loading="lazy">
-            <span class="card-pro__badge">VIP Executive</span>
-            <span class="card-pro__price-pill">₹3,500 / 8hr</span>
-          </div>
-          <div class="card-pro__content">
-            <div>
-              <h3 class="card-pro__title">Innova Crysta</h3>
-              <p class="card-pro__desc">Top-of-the-line highway suspension, reclining captain chairs, and zero fatigue for elderly guests.</p>
-              <div class="chips-row">
-                <span class="chip-item"><i class="fas fa-users" aria-hidden="true"></i> 7 Seats</span>
-                <span class="chip-item"><i class="fas fa-couch" aria-hidden="true"></i> Captains</span>
-                <span class="chip-item"><i class="fas fa-suitcase" aria-hidden="true"></i> 5 Bags</span>
-              </div>
-            </div>
-            <div class="flex gap-2 mt-2">
-              <a class="btn btn-outline btn-sm flex-1 text-center" href="/fleet/innova-crysta-rental/">Details</a>
-              <a class="btn btn-whatsapp btn-sm flex-1 text-center" href="<?php echo htmlspecialchars(bcv_whatsapp_link('I want to book an Innova Crysta')); ?>" target="_blank" rel="noopener">WhatsApp</a>
-            </div>
-          </div>
-        </div>
-
-        <!-- Fleet 4: Tempo Traveller -->
-        <div class="card-pro">
-          <div class="card-pro__image-wrap">
-            <img src="/assets/img/car-tempo.jpg" alt="Force Urbania and Tempo Traveller Group Van" loading="lazy">
-            <span class="card-pro__badge">Group Travel</span>
-            <span class="card-pro__price-pill">From ₹5,000</span>
-          </div>
-          <div class="card-pro__content">
-            <div>
-              <h3 class="card-pro__title">Urbania &amp; Tempo</h3>
-              <p class="card-pro__desc">High-roof luxury 9 to 26 seater coaches with pushback seats, individual AC vents, and massive luggage hold.</p>
-              <div class="chips-row">
-                <span class="chip-item"><i class="fas fa-users" aria-hidden="true"></i> 9-26 Seats</span>
-                <span class="chip-item"><i class="fas fa-tv" aria-hidden="true"></i> Recliners</span>
-                <span class="chip-item"><i class="fas fa-shield-alt" aria-hidden="true"></i> Audio / Mic</span>
-              </div>
-            </div>
-            <div class="flex gap-2 mt-2">
-              <a class="btn btn-outline btn-sm flex-1 text-center" href="/fleet/tempo-traveller-rental/">Details</a>
-              <a class="btn btn-whatsapp btn-sm flex-1 text-center" href="<?php echo htmlspecialchars(bcv_whatsapp_link('I need a Tempo Traveller quote')); ?>" target="_blank" rel="noopener">WhatsApp</a>
-            </div>
-          </div>
-        </div>
-
-      </div>
-    </section>
-
-    <!-- ═══════════════════════════════════════════════════════════
-         6. FEATURED PILGRIMAGE TOURS (Rich Cards)
-         ═══════════════════════════════════════════════════════════ -->
-    <section class="mb-12">
-      <div class="flex justify-between items-end mb-6" style="flex-wrap:wrap;gap:1rem;">
-        <div>
-          <span class="section-label">All-Inclusive Packages</span>
-          <h2>Curated Pilgrimage Tour Packages</h2>
-        </div>
-        <p class="text-muted text-sm" style="max-width:400px;">Hassle-free yatra packages with dedicated chauffeur, fuel, highway tolls, and parking included.</p>
-      </div>
-
-      <div class="grid-3 gap-6">
-
-        <!-- Tour 1 -->
-        <div class="card-pro">
-          <div class="card-pro__image-wrap">
-            <img src="/assets/img/varanasi-ghats.jpg" alt="Kashi Darshan Varanasi Tour" loading="lazy">
-            <span class="card-pro__badge">Full Day Tour</span>
-            <span class="card-pro__price-pill">₹2,000 (8hr)</span>
-          </div>
-          <div class="card-pro__content">
-            <div>
-              <h3 class="card-pro__title">Kashi Darshan Cab Package</h3>
-              <p class="card-pro__desc">Visit Kashi Vishwanath Dham, Annapurna Mandir, Kal Bhairav, Sankat Mochan, BHU Birla Temple, Sarnath, and Dashashwamedh evening Ganga Aarti.</p>
-              <div class="chips-row">
-                <span class="chip-item"><i class="fas fa-clock" aria-hidden="true"></i> 8hr / 80km</span>
-                <span class="chip-item"><i class="fas fa-lock" aria-hidden="true"></i> Luggage Safe</span>
-                <span class="chip-item"><i class="fas fa-check-circle" aria-hidden="true"></i> Doorstep Pick</span>
-              </div>
-            </div>
-            <a class="btn btn-primary btn-full mt-2" href="/tours/kashi-darshan-cab-package/">View Tour Itinerary ›</a>
-          </div>
-        </div>
-
-        <!-- Tour 2 -->
-        <div class="card-pro">
-          <div class="card-pro__image-wrap">
-            <img src="/assets/img/ayodhya-temple.jpg" alt="Ayodhya Ram Mandir Day Trip" loading="lazy">
-            <span class="card-pro__badge card-pro__badge--gold">Day Pilgrimage</span>
-            <span class="card-pro__price-pill">₹18,500 All-Incl</span>
-          </div>
-          <div class="card-pro__content">
-            <div>
-              <h3 class="card-pro__title">Ayodhya Ram Mandir Day Package</h3>
-              <p class="card-pro__desc">Early morning departure from Varanasi to Ayodhya. Covers Ram Janmabhoomi, Hanuman Garhi, Kanak Bhawan, and Saryu River Ghat. Return same evening.</p>
-              <div class="chips-row">
-                <span class="chip-item"><i class="fas fa-shuttle-van" aria-hidden="true"></i> Urbania 9-12</span>
-                <span class="chip-item"><i class="fas fa-receipt" aria-hidden="true"></i> Tolls Included</span>
-                <span class="chip-item"><i class="fas fa-parking" aria-hidden="true"></i> Parking Free</span>
-              </div>
-            </div>
-            <a class="btn btn-primary btn-full mt-2" href="/tours/ayodhya-ram-mandir-taxi-package/">View Tour Itinerary ›</a>
-          </div>
-        </div>
-
-        <!-- Tour 3 -->
-        <div class="card-pro">
-          <div class="card-pro__image-wrap">
-            <img src="/assets/img/prayagraj-sangam.jpg" alt="3-City Spiritual Triangle Tour" loading="lazy">
-            <span class="card-pro__badge">2-Day Grand Yatra</span>
-            <span class="card-pro__price-pill">₹22,500 All-Incl</span>
-          </div>
-          <div class="card-pro__content">
-            <div>
-              <h3 class="card-pro__title">Varanasi-Prayagraj-Ayodhya (2 Days)</h3>
-              <p class="card-pro__desc">The ultimate UP spiritual circuit. Day 1: Triveni Sangam holy snan &amp; temples. Day 2: Ayodhya Ram Janmabhoomi &amp; Saryu Aarti before returning to Kashi.</p>
-              <div class="chips-row">
-                <span class="chip-item"><i class="fas fa-calendar-alt" aria-hidden="true"></i> 2 Full Days</span>
-                <span class="chip-item"><i class="fas fa-shuttle-van" aria-hidden="true"></i> Urbania Van</span>
-                <span class="chip-item"><i class="fas fa-star" aria-hidden="true"></i> Top Rated</span>
-              </div>
-            </div>
-            <a class="btn btn-primary btn-full mt-2" href="/tours/varanasi-prayagraj-ayodhya-package/">View Tour Itinerary ›</a>
-          </div>
-        </div>
-
-      </div>
-    </section>
-
-    <!-- ═══════════════════════════════════════════════════════════
-         7. WHY CHOOSE US (Trust & Safety Feature Grid)
-         ═══════════════════════════════════════════════════════════ -->
-    <section class="card mb-12" style="background:#0B2545;color:#FFFFFF;border:none;padding:clamp(2rem, 5vw, 3.5rem);border-radius:24px;">
-      <div class="text-center mb-8">
-        <span class="section-label" style="background:rgba(255,192,0,0.2);color:#FFC000;">Why Book With Us</span>
-        <h2 style="color:#FFFFFF;margin-bottom:0.75rem;">The Book Cab Varanasi Guarantee</h2>
-        <p style="color:rgba(255,255,255,0.75);max-width:600px;margin:0 auto;">Dedicated to providing safe, comfortable, and spiritually fulfilling travel experiences for over two decades.</p>
-      </div>
-
-      <div class="grid-3 gap-6">
-
-        <div class="feature-box">
-          <div class="feature-box__icon"><i class="fas fa-user-check" aria-hidden="true"></i></div>
-          <h3>Verified Local Chauffeurs</h3>
-          <p>Our drivers are courteous, background-verified professionals who know temple gates, parking spots, and shortest routes intimately.</p>
-        </div>
-
-        <div class="feature-box">
-          <div class="feature-box__icon"><i class="fas fa-receipt" aria-hidden="true"></i></div>
-          <h3>Zero Hidden Charges</h3>
-          <p>Transparent upfront pricing. All fuel, driver BATA, and vehicle rates are disclosed before you travel with no surge fees.</p>
-        </div>
-
-        <div class="feature-box">
-          <div class="feature-box__icon"><i class="fas fa-snowflake" aria-hidden="true"></i></div>
-          <h3>Guaranteed Chilled AC</h3>
-          <p>High-efficiency air conditioning kept active throughout your travel. Sanitized interiors and bottled water on outstation routes.</p>
-        </div>
-
-        <div class="feature-box">
-          <div class="feature-box__icon"><i class="fas fa-plane" aria-hidden="true"></i></div>
-          <h3>Flight Delay Protection</h3>
-          <p>We monitor live arrival status at Babatpur Airport (VNS). If your flight is delayed, your chauffeur adjusts pickup time at zero penalty.</p>
-        </div>
-
-        <div class="feature-box">
-          <div class="feature-box__icon"><i class="fas fa-lock" aria-hidden="true"></i></div>
-          <h3>Temple Baggage Care</h3>
-          <p>Electronic items, cameras, and luggage are safely held in your locked private cab while you perform darshan inside security cordons.</p>
-        </div>
-
-        <div class="feature-box">
-          <div class="feature-box__icon"><i class="fas fa-headset" aria-hidden="true"></i></div>
-          <h3>24/7 Dedicated Support</h3>
-          <p>Round-the-clock telephone and WhatsApp helpline ready to assist with custom itineraries, emergencies, or instant bookings.</p>
-        </div>
-
-      </div>
-    </section>
-
-    <!-- ═══════════════════════════════════════════════════════════
-         8. VERIFIED PILGRIM TESTIMONIALS (Social Proof)
-         ═══════════════════════════════════════════════════════════ -->
-    <section class="mb-12">
-      <div class="text-center mb-8">
-        <span class="section-label">Verified Reviews</span>
-        <h2>What Pilgrims &amp; Families Say</h2>
-        <div class="stars my-2" aria-label="5 out of 5 stars">★★★★★</div>
-        <p class="text-muted">4.8 / 5.0 Average Rating based on 470+ verified Google and WhatsApp reviews</p>
-      </div>
-
-      <div class="grid-3 gap-6">
-
-        <div class="testimonial-card">
-          <div class="testimonial-header">
-            <img class="testimonial-avatar" src="/assets/img/avatar-1.jpg" alt="Amitabh Mukherjee" loading="lazy">
-            <div>
-              <div class="testimonial-name">Amitabh Mukherjee</div>
-              <div class="testimonial-meta">Kolkata · Traveled with elderly parents</div>
-            </div>
-          </div>
-          <div class="stars mb-2" style="font-size:0.85rem;">★★★★★</div>
-          <p class="testimonial-quote">
-            "Booked an Innova Crysta for our 2-day Varanasi-Ayodhya yatra. Chauffeur Rajesh was exceptionally polite and helped my 74-year-old mother navigate Tedhi Bazar parking in Ayodhya. Pristine AC and completely honest pricing."
-          </p>
-          <span class="text-xs text-muted"><i class="fas fa-check-circle text-success" aria-hidden="true"></i> Verified Booking</span>
-        </div>
-
-        <div class="testimonial-card">
-          <div class="testimonial-header">
-            <img class="testimonial-avatar" src="/assets/img/avatar-2.jpg" alt="Pooja Sharma" loading="lazy">
-            <div>
-              <div class="testimonial-name">Pooja Sharma</div>
-              <div class="testimonial-meta">New Delhi · Family pilgrimage</div>
-            </div>
-          </div>
-          <div class="stars mb-2" style="font-size:0.85rem;">★★★★★</div>
-          <p class="testimonial-quote">
-            "We took the 12-seater Force Urbania for 9 family members for Kashi Darshan and Triveni Sangam. The vehicle was like new, high roof, pushback seats, and our bags were safely stored while we were at the ghats. Highly recommended!"
-          </p>
-          <span class="text-xs text-muted"><i class="fas fa-check-circle text-success" aria-hidden="true"></i> Verified Booking</span>
-        </div>
-
-        <div class="testimonial-card">
-          <div class="testimonial-header">
-            <img class="testimonial-avatar" src="/assets/img/avatar-3.jpg" alt="Ramesh Kulkarni" loading="lazy">
-            <div>
-              <div class="testimonial-name">Ramesh Kulkarni</div>
-              <div class="testimonial-meta">Bengaluru · Airport &amp; Outstation</div>
-            </div>
-          </div>
-          <div class="stars mb-2" style="font-size:0.85rem;">★★★★★</div>
-          <p class="testimonial-quote">
-            "Our flight was delayed by 2 hours landing at Babatpur at midnight. The driver was waiting calmly with a placard, helped with heavy luggage, and dropped us at Assi Ghat. Booked our Ayodhya trip with them the next morning."
-          </p>
-          <span class="text-xs text-muted"><i class="fas fa-check-circle text-success" aria-hidden="true"></i> Verified Booking</span>
-        </div>
-
-      </div>
-    </section>
-
-    <!-- ═══════════════════════════════════════════════════════════
-         9. FREQUENTLY ASKED QUESTIONS (Accordion)
-         ═══════════════════════════════════════════════════════════ -->
-    <section class="mb-12">
-      <div class="text-center mb-8">
-        <span class="section-label">Common Queries</span>
-        <h2>Frequently Asked Questions</h2>
-        <p class="text-muted">Everything you need to know before booking your cab in Varanasi.</p>
-      </div>
-
-      <div class="faq-list" style="max-width:850px;margin:0 auto;">
-
-        <div class="faq-item">
-          <button class="faq-question" aria-expanded="false" aria-controls="faq-home-1">
-            <span>How do I book a cab with Book Cab Varanasi?</span>
-            <i class="fas fa-chevron-down faq-icon" aria-hidden="true"></i>
-          </button>
-          <div id="faq-home-1" class="faq-answer">
-            <p>You can book instantly online by filling out our quick booking form below, calling our 24/7 hotline at <a href="tel:+<?php echo BCV_PHONE_RAW; ?>">+91-9838409911</a>, or messaging us on WhatsApp at <a href="<?php echo BCV_WHATSAPP_URL; ?>" target="_blank" rel="noopener">+91-9648974238</a>. Our reservation team confirms vehicle availability and transparent fixed fares within 10 to 15 minutes.</p>
-          </div>
-        </div>
-
-        <div class="faq-item">
-          <button class="faq-question" aria-expanded="false" aria-controls="faq-home-2">
-            <span>Are your taxi fares fixed or will there be hidden charges?</span>
-            <i class="fas fa-chevron-down faq-icon" aria-hidden="true"></i>
-          </button>
-          <div id="faq-home-2" class="faq-answer">
-            <p>All our taxi fares are 100% transparent. Fuel charges and driver allowances are included in local and tour packages. Outstation one-way and round-trip base fares are clearly stated upfront, with state highway tolls and parking charges billed as per actual receipts.</p>
-          </div>
-        </div>
-
-        <div class="faq-item">
-          <button class="faq-question" aria-expanded="false" aria-controls="faq-home-3">
-            <span>Can your taxi drop us right inside the temple premises at Kashi Vishwanath or Ayodhya Ram Mandir?</span>
-            <i class="fas fa-chevron-down faq-icon" aria-hidden="true"></i>
-          </button>
-          <div id="faq-home-3" class="faq-answer">
-            <p>Due to strict government regulations and high-security pedestrian zones, private four-wheelers cannot enter inner temple corridors. In Varanasi, drivers drop at Godowlia Chowk or Maidagin (300-400m from Vishwanath Dham). In Ayodhya, cabs drop at designated parking plazas (Tedhi Bazar / Amaniganj).</p>
-          </div>
-        </div>
-
-        <div class="faq-item">
-          <button class="faq-question" aria-expanded="false" aria-controls="faq-home-4">
-            <span>What vehicles are available for family and large group pilgrimages?</span>
-            <i class="fas fa-chevron-down faq-icon" aria-hidden="true"></i>
-          </button>
-          <div id="faq-home-4" class="faq-answer">
-            <p>We maintain Swift Dzire (4-seater), Maruti Ertiga (6-seater), Toyota Innova Crysta (7-seater), luxury Force Urbania vans (6-12 seats), and Force Tempo Travellers (12 to 26 seats), as well as 35-seater AC mini coaches for large pilgrim groups.</p>
-          </div>
-        </div>
-
-        <div class="faq-item">
-          <button class="faq-question" aria-expanded="false" aria-controls="faq-home-5">
-            <span>What is your cancellation and reschedule policy?</span>
-            <i class="fas fa-chevron-down faq-icon" aria-hidden="true"></i>
-          </button>
-          <div id="faq-home-5" class="faq-answer">
-            <p>We offer free cancellation up to 4 hours before local trips and 12 hours before outstation trips. Rescheduling is completely free subject to vehicle availability on your new requested dates.</p>
-          </div>
-        </div>
-
-      </div>
-    </section>
-
-    <!-- ═══════════════════════════════════════════════════════════
-         10. FULL BOOKING INQUIRY FORM (Conversion Anchor)
-         ═══════════════════════════════════════════════════════════ -->
-    <section class="card mb-12" id="booking-form-section" style="border:2px solid #E2E8F0;box-shadow:0 12px 36px rgba(13,44,85,0.08);">
-      <?php
-      $form_section_id  = 'home-booking-form';
-      $form_origin      = 'Varanasi';
-      $form_destination = 'Ayodhya';
-      include __DIR__ . '/includes/booking-form.php';
-      ?>
-    </section>
-
-  </div><!-- /.container -->
+<!-- FAQ (NEW): matches FAQPage schema in <head> -->
+<section class="space" id="faq">
+    <div class="container">
+        <div class="title-area text-center"><span class="sub-title">FAQ</span><h2 class="sec-title">Frequently Asked Questions</h2></div>
+        <div class="row justify-content-center"><div class="col-lg-9">
+            <div class="faq-item"><h3>How can I book a cab in Varanasi?</h3><p>Call +91-9838409911, message us on WhatsApp, or fill the online booking form on this page with your vehicle type, route, date and time. We confirm quickly, 24/7.</p></div>
+            <div class="faq-item"><h3>What is the taxi fare from Varanasi to Ayodhya, Prayagraj, Gaya or Lucknow?</h3><p>Outstation fares are billed per km: Swift Dzire Rs. 13/km, Ertiga and Kia Carens Rs. 16/km, Innova Crysta Rs. 19/km, Tempo Traveller from Rs. 32/km. A minimum of 250 km per day applies. Toll, parking and state entry tax are extra, and driver night allowance applies on overnight trips.</p></div>
+            <div class="faq-item"><h3>Do you provide Tempo Traveller and mini bus for groups?</h3><p>Yes. We offer 12, 17, 21 and 26 seater Tempo Travellers, Force Urbania and a 35 seater mini bus for pilgrimage, family and corporate groups.</p></div>
+            <div class="faq-item"><h3>Is airport pickup and drop available at Varanasi airport?</h3><p>Yes, we offer 24/7 airport transfers. Airport transfer starts at Rs. 1,000 for a Swift Dzire and Rs. 1,200 for an Ertiga.</p></div>
+            <div class="faq-item"><h3>Do you offer one-way and round-trip taxi?</h3><p>Yes. Both one-way and round-trip taxis are available for Ayodhya, Prayagraj, Gaya, Bodhgaya, Lucknow and nearby cities. Call us for the exact quote for your route.</p></div>
+        </div></div>
+    </div>
+</section>
 </main>
-
-<!-- Quick Search Interactive Script -->
-<script>
-document.querySelectorAll('.pro-tab-item').forEach(function(tab) {
-  tab.addEventListener('click', function() {
-    document.querySelectorAll('.pro-tab-item').forEach(function(t) {
-      t.classList.remove('active');
-      t.setAttribute('aria-selected', 'false');
-    });
-    this.classList.add('active');
-    this.setAttribute('aria-selected', 'true');
-
-    var type = this.getAttribute('data-type');
-    var destWrap = document.getElementById('dest-wrap');
-    var destSelect = document.getElementById('search-dest');
-    var originInput = document.getElementById('search-origin');
-
-    if (type === 'airport') {
-      originInput.value = 'Lal Bahadur Shastri Airport (VNS)';
-      destSelect.value = 'Varanasi';
-    } else if (type === 'local') {
-      originInput.value = 'Varanasi Hotel / City';
-      destSelect.value = 'Varanasi Local Sightseeing';
-    } else {
-      originInput.value = 'Varanasi';
-      destSelect.value = 'Ayodhya';
-    }
-  });
-});
-
-function handleHeroSearch(e) {
-  e.preventDefault();
-  var origin = document.getElementById('search-origin').value;
-  var dest = document.getElementById('search-dest').value;
-  var date = document.getElementById('search-date').value;
-  var activeTab = document.querySelector('.pro-tab-item.active');
-  var tripType = activeTab ? activeTab.getAttribute('data-type') : 'one_way';
-
-  // Populate booking form fields
-  var bookingSec = document.getElementById('home-booking-form');
-  if (bookingSec) {
-    var formOrigin = document.getElementById('origin-home-booking-form');
-    var formDest = document.getElementById('destination-home-booking-form');
-    var formDate = document.getElementById('travel-date-home-booking-form');
-
-    if (formOrigin) formOrigin.value = origin;
-    if (formDest) formDest.value = dest;
-    if (formDate) formDate.value = date;
-
-    var matchingTab = bookingSec.querySelector('.trip-tab[data-type="' + tripType + '"]');
-    if (matchingTab) matchingTab.click();
-
-    bookingSec.scrollIntoView({ behavior: 'smooth', block: 'start' });
-    setTimeout(function() {
-      var nameField = document.getElementById('cust-name-home-booking-form');
-      if (nameField) nameField.focus();
-    }, 600);
-  }
-  return false;
-}
-</script>
-
-<?php
-include __DIR__ . '/includes/footer.php';
-?>
+<?php include("footer.php") ?>
